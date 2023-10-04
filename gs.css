@@ -4,7 +4,6 @@
 	font-family: "Poppins",sans-serif;
 }
 .banner{
-	width: 200vh;
 	height: 300vh;
 	background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(gs.jpg);
 	background-repeat: no-repeat;
@@ -19,6 +18,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	position: sticky;
+	top: 0;
 }
 .logo {
 	width: 80px;
@@ -51,7 +52,7 @@
 	width: 70%;
 	position: absolute;
 	top: 80%;
-	transform: translateY(-50%);
+	transform: translateY(-22%);
 	text-align: left;
 	margin-left: 30vh;
 	color: #fff;
