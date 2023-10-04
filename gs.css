@@ -4,7 +4,7 @@
 	font-family: "Poppins",sans-serif;
 }
 .banner{
-	height: 350vh;
+	height: 270vh;
 	background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(gs.jpg);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
