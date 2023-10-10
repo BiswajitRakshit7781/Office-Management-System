@@ -25,7 +25,7 @@ body {
    border-radius: 10px;
    padding: 30px 40px;
 }
-
+z
 
 .wrapper h1{
   font-size: 36px;
@@ -112,4 +112,14 @@ padding: 10px 10px 10px 10px;
   font-size: 16px;
   color: #333;
   font-weight: 600;
+}
+
+.home a {
+  margin: 100px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.home a:hover {
+  text-decoration: underline;
 }
