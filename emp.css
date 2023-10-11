@@ -1,25 +1,21 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family:"Poppins",sans-serif;
 }
 body{
-    background: url(about.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: auto;
-    width: 100%;
-    align-items:center;
-    justify-content: center;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(about.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .container{
-   position: absolute;
-   top:60px;
-   backdrop-filter: blur(10px);
-   background-color: rgb(255, 255, 255);
-    padding: 200px;
-    border-radius: 30px;
-    
+   background: transparent;
+   color: #fff;
 }
 .container button{
     position: relative fixed;
@@ -32,34 +28,30 @@ body{
     padding-right: 10px;
     font-size: 20px;
     border-radius: 20px;
-    border-style: none;
-    background-color: rgb(31, 24, 70);
+    border-style:solid;
+    background-color: rgb(102, 96, 133);
     color: white;
 }
-.container h1{
-    position: absolute;
+h1{
+    position:absolute;
     top:30px;
     color: white;
-    text-decoration: underline;
-    font-family: 'Times New Roman', Times, serif;
     font-size: 50px;
-    margin-left: 200px;
 }
 .container svg{
-    font-size:44px;
+    font-size:25px;
     fill: rgb(255, 255, 255);
     margin-bottom: 100px;
-    position: relative;
-   
+    position: absolute;
  }
 .container #One{
     padding-bottom: 50px;
     padding-left: 60px;
-    padding-right: 60px;
+    padding-right: 60px; 
     border: 6px solid rgb(167, 90, 90);
 }
 .container #Two{
-    padding-bottom: 32px;
+    padding-bottom: 50px;
     padding-left: 60px;
     padding-right: 60px;
     border: 6px solid rgb(167, 90, 90);    
@@ -77,45 +69,29 @@ body{
     border: 6px solid rgb(167, 90, 90);
 }
 .container #One:hover{
-    color:rgb(5, 238, 13);
- box-shadow: 0 0 60px rgb(5, 238, 13);
+    color:rgb(1, 225, 255);
+    box-shadow: 0 0 60px rgb(1, 225, 255);
     transition: 0.5s;
-    border:6px solid rgb(5, 238, 13);
+    border:6px solid rgb(1, 225, 255);
     
 }
 .container #Two:hover{
-    color:rgb(255, 242, 0);
- box-shadow: 0 0 60px rgb(255, 242, 0);
+    color:rgb(1, 225, 255);
+    box-shadow: 0 0 60px rgb(1, 225, 255);
     transition: 0.5s;
-    border:6px solid rgb(255, 242, 0);
+    border:6px solid rgb(1, 225, 255);
 }   
 .container #Three:hover{
     color:rgb(1, 225, 255);
- box-shadow: 0 0 60px rgb(1, 225, 255);
+    box-shadow: 0 0 60px rgb(1, 225, 255);
     transition: 0.5s;
     border:6px solid rgb(1, 225, 255);
 }
 .container #Four:hover{
-    color:rgb(216, 108, 238);
- box-shadow: 0 0 60px rgb(216, 108, 238);
+    color:rgb(1, 225, 255);
+    box-shadow: 0 0 60px rgb(1, 225, 255);
     transition: 0.5s;
-    border:6px solid rgb(216, 108, 238);
-}
-.container #One:hover #One1{
-    fill:rgb(5, 238, 13);
-    animation: slide-up 2s ease infinite;
-}
-.container #Two:hover #Two2{
-    fill:rgb(255,242,0);
-    animation: slide-up 2s ease infinite;
-}
-.container #Three:hover #Three3{
-    fill:rgb(32, 209, 232);
-    animation: slide-up 2s ease infinite;
-}
-.container #Four:hover #Four4{
-    fill:rgb(216, 108, 238);
-    animation: slide-up 2s ease infinite;
+    border:6px solid rgb(1, 225, 255);
 }
 @keyframes slide-up{
     0%{
