@@ -12,17 +12,17 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('registration.jpg') no-repeat;
+    background:linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url('registration.jpg') no-repeat;
     background-size: cover;
     background-position: center;
  }
 
  .wrapper{
     width: 750px;
-    background: rgba(255, 255, 255, .1);
+    background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(20px);
     border-radius: 10px;
     color: #fff;
     padding: 40px 35px 55px;
