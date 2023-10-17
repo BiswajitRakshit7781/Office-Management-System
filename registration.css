@@ -19,10 +19,10 @@
 
  .wrapper{
     width: 750px;
-    background: transparent;
+    background: rgba(255, 255, 255, .1);
     border: 2px solid rgba(255, 255, 255, .2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(50px);
     border-radius: 10px;
     color: #fff;
     padding: 40px 35px 55px;
@@ -41,20 +41,19 @@
     flex-wrap: wrap;
  }
 
- .input-box .input-field{
+ .input-box .input-field {
     position: relative;
     width: 48%;
-    background: salmon;
     margin: 13px 0;
+    background: transparent;
  }
 
- .input-box .input-field{
+ .input-box .input-field input{
     position: relative;
-    width: 50%;
+    width: 80%;
     height: 50px;
     background: transparent;
-    border: 2px solid rg
-    ba(255, 255, 255, .2);
+    border: 2px solid rgba(255, 255, 255, .2);
     outline: none;
     font-size: 16px;
     color: #fff;
@@ -62,11 +61,12 @@
     padding: 15px 15px 15px 40px;
  }   
 
- .input-box .input-field input ::placeholder{
+ .input-box .input-field input ::placeholder {
     color: #fff;
  }
  .input-box .input-field i {
     position: absolute;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
@@ -104,6 +104,16 @@
     }
  }
 
+ .wrapper .login {
+   font-size: 14.5px;
+   text-align: center;
+   margin-top: 20px;
+ }
+
+ .wrapper .login a {
+   text-decoration: none;
+   color: #fff;
+ }
 
 
 
