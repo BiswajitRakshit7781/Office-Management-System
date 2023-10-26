@@ -83,7 +83,7 @@
 
             <button type="submit" class="btn">Register</button>
             <div class="login">
-                <a href="login.html"> < Back </a></div>
+                <a href="login.php"> < Back </a></div>
               </div>
         </form>
     </div>
