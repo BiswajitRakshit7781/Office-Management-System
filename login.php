@@ -1,38 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="login.css">
-</head>
-<body>
-  <div class="wrapper">
-    <form action="connect.php" method="post">
-      <h1>Login</h1>
-      <div class="input-box">
-        <input type="email" name="email" placeholder="Email Id" required>  
-      </div>
-      <select name="dropdown">
-        <option value="employee">Employee</option>
-        <option value="hr">HR</option>
-        <option value="manager">Project Manager</option>
-      </select>
-      <div class="input-box">
-        <input type="password" name="password" placeholder="Password" required>  
-      </div>
-      <div class="remember-forgot">
-        <label><input type="checkbox">Remember Me</label>
-        <a href="#">Forgot Password</a>
-      </div>
-      <button type="submit" class="btn">Log In</button>
-      <div class="register-link">
-        <p>Don't have an account ? <a href="registration.php">Register</a></p>
-      </div>
-      <div class="home">
-        <a href="home.html"> < Back To Home </a></div>
-      </div>
-    </form>
-</body>
-</html>
+<?php
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+  $email = $_POST['email'];
+  $post = $_POST['dropdown'];
+  $password = $_POST['password'];
+
+  $host = "localhost";
+  $dbusername = "root";
+  $dbname = "project_database";
+  $dbpasword = " ";
+
+  $conn = new mysqli($host,$dbusername,$dbname,$dbpasword);
+
+  if($conn->connect_error){
+    die("Connection failed: ". $conn->connect_error);
+  }
+
+  $query = "SELECT *FROM employee WHERE email_id='$email' AND post='$post' AND password='$password'";
+  $result = $conn->query($query);
+
+  if($result->num_rows == 1){
+    header("Location: emp.html");
+    exit();
+  }
+  else{
+    echo "<script>alert('Invalid Email or Password')</script>";
+    exit();
+  }
+  $conn->close();
+}
+?>
