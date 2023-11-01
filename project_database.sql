@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2023 at 07:35 PM
+-- Generation Time: Nov 01, 2023 at 07:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,10 +44,19 @@ CREATE TABLE `employee` (
   `emp_name` varchar(30) NOT NULL,
   `email_id` varchar(100) NOT NULL,
   `address` varchar(300) NOT NULL,
-  `phone_no` int(10) NOT NULL,
+  `phone_no` varchar(10) NOT NULL,
+  `post` text NOT NULL,
+  `password` varchar(15) NOT NULL,
   `date_of_join` date NOT NULL,
   `basic` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`emp_id`, `emp_name`, `email_id`, `address`, `phone_no`, `post`, `password`, `date_of_join`, `basic`) VALUES
+('EMP0001', 'Raju Pal', 'rajupal@gmail.com', 'Nadia,West Bengal ', '9874563210', 'HR', 'RAJU0001', '2016-07-13', 60000);
 
 -- --------------------------------------------------------
 
@@ -73,18 +82,6 @@ CREATE TABLE `leave` (
   `leave_id` varchar(10) NOT NULL,
   `descripction` text NOT NULL,
   `max_leave` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login`
---
-
-CREATE TABLE `login` (
-  `email_id` varchar(255) NOT NULL,
-  `post` int(30) NOT NULL,
-  `password` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -179,12 +176,6 @@ ALTER TABLE `leave`
   ADD PRIMARY KEY (`leave_id`);
 
 --
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`email_id`);
-
---
 -- Indexes for table `notice`
 --
 ALTER TABLE `notice`
@@ -225,12 +216,6 @@ ALTER TABLE `attendance`
 ALTER TABLE `employee_leave`
   ADD CONSTRAINT `employee_leave_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
   ADD CONSTRAINT `employee_leave_ibfk_2` FOREIGN KEY (`leave_id`) REFERENCES `leave` (`leave_id`);
-
---
--- Constraints for table `login`
---
-ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`email_id`) REFERENCES `employee` (`email_id`);
 
 --
 -- Constraints for table `payroll`
