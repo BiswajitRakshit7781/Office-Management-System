@@ -3,96 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="hr_dashboard.css">
   <title>HR Dashboard</title>
-  <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        .navbar h1 {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        .tabcontent {
-            display: none;
-        }
-
-        h2 {
-            color: #333;
-        }
-        /* CSS for Add Employee Form */
-  form {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  label,
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  textarea,
-  input[type="date"] {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-
-  textarea {
-    height: 100px;
-  }
-
-  input[type="submit"] {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #45a049;
-  }
-
-  /* Responsive layout for forms */
-  @media (max-width: 600px) {
-    form {
-        width: 90%;
-    }
-  }
-
-  </style>
 </head>
 <body>
   <div class="navbar">
@@ -101,7 +13,7 @@
   </div>
   <h2>Tabs</h2>
   <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'addEmployee')">Add Employee</button> <button class="tablinks" onclick="openTab(event, 'projectStatistics')">View Project Statistics</button> <button class="tablinks" onclick="openTab(event, 'payroll')">Payroll</button> <button class="tablinks" onclick="openTab(event, 'leaveRegister')">Leave Register</button> <button class="tablinks" onclick="openTab(event, 'attendanceRegister')">Attendance Register</button>
+    <button class="tablinks" onclick="openTab(event, 'addEmployee')"> <span></span>Add Employee</button> <button class="tablinks" onclick="openTab(event, 'projectStatistics')"><span></span>View Project Statistics</button> <button class="tablinks" onclick="openTab(event, 'payroll')"><span></span>Payroll</button> <button class="tablinks" onclick="openTab(event, 'leaveRegister')"><span></span>Leave Register</button> <button class="tablinks" onclick="openTab(event, 'attendanceRegister')"><span></span>Attendance Register</button>
   </div><!-- Tabs Content -->
   <div id="addEmployee" class="tabcontent">
     <h3>Add Employee Content</h3><?php
