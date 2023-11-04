@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2023 at 07:57 PM
+-- Generation Time: Nov 04, 2023 at 01:17 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,6 +33,13 @@ CREATE TABLE `attendance` (
   `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `attendance`
+--
+
+INSERT INTO `attendance` (`emp_id`, `date`, `status`) VALUES
+('EMP0005', '0000-00-00', '');
+
 -- --------------------------------------------------------
 
 --
@@ -56,7 +63,11 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_id`, `emp_name`, `email_id`, `address`, `phone_no`, `post`, `password`, `date_of_join`, `basic`) VALUES
-('EMP0001', 'Raju Pal', 'rajupal@gmail.com', 'Nadia,West Bengal ', '9874563210', 'HR', 'RAJU0001', '2016-07-13', 60000);
+('EMP0001', 'Raju Pal', 'rajupal@gmail.com', 'Nadia,West Bengal ', '9874563210', 'HR', 'RAJU0001', '2016-07-13', 60000),
+('EMP0002', 'Saikat Das', 'saikatdas@gmail.com', 'Bally,West Bengal ', '7485963210', 'Employee', 'SAIK0002', '2017-01-05', 20000),
+('EMP0003', 'Arpita Sen', 'arpitasen@gmail.com', 'Rishra,West Bengal ', '9678410235', 'Manager', 'ARPI0003', '2018-05-08', 40000),
+('EMP0004', 'MD. Musfikur', 'mdmusfi@gmail.com', 'Murshidabad, West Bengal', '6291364578', 'Employee', 'MDMU0005', '2021-11-02', 18000),
+('EMP0005', 'Soham Das', 'sohamdas@gmail.com', 'Uttarpara,West Bengal ', '8796541230', 'employee', 'SOHA0004', '2020-01-04', 20000);
 
 -- --------------------------------------------------------
 
@@ -91,10 +102,18 @@ CREATE TABLE `leave` (
 --
 
 CREATE TABLE `notice` (
-  `date` date NOT NULL,
-  `time` int(11) NOT NULL,
+  `notice_id` double NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `notice` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notice`
+--
+
+INSERT INTO `notice` (`notice_id`, `time`, `notice`) VALUES
+(1, '2023-11-04 09:23:16', 'testing '),
+(10, '2023-11-04 09:42:50', '');
 
 -- --------------------------------------------------------
 
@@ -125,11 +144,18 @@ CREATE TABLE `project` (
   `project_id` varchar(20) NOT NULL,
   `project_name` varchar(20) NOT NULL,
   `description` varchar(150) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `progression` varchar(20) NOT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `progression` varchar(20) DEFAULT NULL,
   `starting_date` date NOT NULL,
   `ending_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`project_id`, `project_name`, `description`, `status`, `progression`, `starting_date`, `ending_date`) VALUES
+('PROJ001', 'Online Food Service', 'An online food service website where customer can order and pay online. Also having customer support.', 'Complete', '100%', '2022-10-12', '2023-01-27');
 
 -- --------------------------------------------------------
 
@@ -140,8 +166,7 @@ CREATE TABLE `project` (
 CREATE TABLE `task` (
   `project_id` varchar(20) NOT NULL,
   `emp_id` varchar(20) NOT NULL,
-  `role` varchar(20) NOT NULL,
-  `progress` varchar(30) NOT NULL
+  `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -179,7 +204,7 @@ ALTER TABLE `leave`
 -- Indexes for table `notice`
 --
 ALTER TABLE `notice`
-  ADD PRIMARY KEY (`date`);
+  ADD PRIMARY KEY (`notice_id`);
 
 --
 -- Indexes for table `payroll`
@@ -199,6 +224,16 @@ ALTER TABLE `project`
 ALTER TABLE `task`
   ADD KEY `project_id` (`project_id`),
   ADD KEY `emp_id` (`emp_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `notice`
+--
+ALTER TABLE `notice`
+  MODIFY `notice_id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

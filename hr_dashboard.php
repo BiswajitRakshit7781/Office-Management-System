@@ -109,9 +109,55 @@ session_start();
          <button type="submit" class="btn">Add</button>
         </form>
     </div>
-      </div>
+</div>
 
-      <div id="viewEmployee" class="tabcontent">
+<div id="updateEmployee" class="tabcontent">
+        
+    </div>
+
+<div id="deleteEmployee" class="tabcontent">
+<?php
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "project_database";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve employee ID from the form
+    $emp_id = $_POST["emp_id"];
+
+    // Delete employee data from the database
+    $sql = "DELETE FROM employee WHERE emp_id = $emp_id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Employee data deleted successfully";
+    } else {
+        echo "Error deleting employee data: " . $conn->error;
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+<form action="delete_employee.php" method="post">
+    <label for="emp_id">Employee ID to Delete:</label>
+    <input type="text" name="emp_id" required><br>
+
+    <input type="submit" value="Delete Employee">
+</form>
+    </div>
+
+
+<div id="viewEmployee" class="tabcontent">
       <?php
 // Database connection parameters
 $servername = "localhost"; // Change this to your database server name
@@ -175,7 +221,63 @@ $conn->close();
 ?>
       </div>
 
+<div id="addProject" class="tabcontent">
+<?php
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "project_database";
 
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $project_id = $_POST["project_id"];
+    $project_name = $_POST["project_name"];
+    $description = $_POST["description"];
+    $starting_date = $_POST["starting_date"];
+    $ending_date = $_POST["ending_date"];
+
+    // Insert project data into the database
+    $sql = "INSERT INTO project (project_id,project_name, description, starting_date, ending_date) 
+            VALUES ('$project_id'.'$project_name', '$description', '$starting_date', '$ending_date')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Project added successfully";
+    } else {
+        echo "Error adding project: " . $conn->error;
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+<form action="add_project.php" method="post">
+    <label for="project_id">Project ID:</label>
+    <input type="text" name="project_id" required><br>
+
+    <label for="project_name">Project Name:</label>
+    <input type="text" name="project_name" required><br>
+
+    <label for="description">Description:</label>
+    <textarea name="description" rows="4" required></textarea><br>
+
+    <label for="starting_date">Starting Date:</label>
+    <input type="date" name="starting_date" required><br>
+
+    <label for="ending_date">Ending Date:</label>
+    <input type="date" name="ending_date" required><br>
+
+    <input type="submit" value="Add Project">
+</form>
+</div>
   <div id="projectStatistics" class="tabcontent">
     <h1>Project Statistics</h1>
     <?php

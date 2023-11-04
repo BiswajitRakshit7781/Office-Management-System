@@ -183,6 +183,40 @@ margin-bottom: 15px;
 box-sizing: border-box;
 }
 
+#deleteEmployee form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#deleteEmployee h2 {
+    text-align: center;
+    color: #333;
+}
+
+#deleteEmployee label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#deleteEmployee input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+#deleteEmployee input[type="submit"] {
+    background-color: #e74c3c;
+    color: #fff;
+    cursor: pointer;
+}
+
+#deleteEmployee input[type="submit"]:hover {
+    background-color: #c0392b;
+}
+
 #viewEmployee table {
     width: 100%;
     margin-top: 20px;
@@ -353,4 +387,38 @@ box-sizing: border-box;
 
 #notice input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+#addProject form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#addProject h2 {
+    text-align: center;
+    color: #333;
+}
+
+#addProject label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#addProject input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+#addProject input[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+}
+
+#addProject input[type="submit"]:hover {
+    background-color: #2980b9;
 }
