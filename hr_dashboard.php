@@ -331,7 +331,76 @@ $conn->close();
 
   <div id="payroll" class="tabcontent">
     <h3>Payroll Content</h3><!-- Payroll content goes here -->
+    <?php
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "project_database";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch data from the "attendance" table
+$sql = "SELECT * FROM attendance";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Get attendance details
+        $empId = $row["emp_id"];
+        $attendanceMonth = $row["attendance_month"];
+        $attendanceYear = $row["attendance_year"];
+        $status = $row["status"];
+
+        // Fetch basic salary from the "employee" table
+        $employeeSql = "SELECT basic FROM employee WHERE emp_id = $empId";
+        $employeeResult = $conn->query($employeeSql);
+
+        if ($employeeResult->num_rows > 0) {
+            $employeeRow = $employeeResult->fetch_assoc();
+            $basicSalary = $employeeRow["basic"];
+
+            // Calculate deduction based on attendance status
+            $deduction = ($status == 'A') ? ($basicSalary / 30) : 0;
+
+            // Calculate other payroll components (you can customize these formulas)
+            $pf = 0.12 * $basicSalary;
+            $da = 0.05 * $basicSalary;
+            $hra = 0.08 * $basicSalary;
+            $grossSalary = $basicSalary + $da + $hra;
+            $netSalary = $grossSalary - $deduction;
+
+            // Insert or update the payroll information in the "payroll" table
+            $payrollSql = "INSERT INTO payroll (emp_id, payroll_year, payroll_month, da, hra, pf, deduction, gross_salary, net_salary) 
+                           VALUES ($empId, $attendanceYear, $attendanceMonth, $da, $hra, $pf, $deduction, $grossSalary, $netSalary)
+                           ON DUPLICATE KEY UPDATE 
+                           da = VALUES(da), hra = VALUES(hra), pf = VALUES(pf), deduction = VALUES(deduction), 
+                           gross_salary = VALUES(gross_salary), net_salary = VALUES(net_salary)";
+
+            if ($conn->query($payrollSql) === TRUE) {
+                echo "Payroll calculation and update successful for emp_id: $empId, month: $attendanceMonth, year: $attendanceYear <br>";
+            } else {
+                echo "Error: " . $payrollSql . "<br>" . $conn->error;
+            }
+        } else {
+            echo "Employee not found for emp_id: $empId <br>";
+        }
+    }
+} else {
+    echo "No attendance records found.";
+}
+
+// Close the connection
+$conn->close();
+?>
   </div>
+
+
   <div id="leaveRegister" class="tabcontent">
     <h3>Leave Register Content</h3><!-- Leave register content goes here -->
   </div>
@@ -409,7 +478,7 @@ if ($resultNotices->num_rows > 0) {
 // Close the database connection
 $conn->close();
 ?>
-</div> -->
+</div> 
   <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;

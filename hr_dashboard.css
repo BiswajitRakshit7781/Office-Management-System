@@ -422,3 +422,39 @@ box-sizing: border-box;
 #addProject input[type="submit"]:hover {
     background-color: #2980b9;
 }
+
+#payroll h1, h2 {
+    color: #333;
+}
+
+#payroll ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    overflow: hidden;
+}
+
+#payroll li {
+    float: left;
+}
+
+#payroll li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#payroll li a:hover {
+    background-color: #555;
+}
+
+#payroll .active {
+    background-color: #4CAF50;
+}
+
+#payroll div {
+    padding: 20px;
+}

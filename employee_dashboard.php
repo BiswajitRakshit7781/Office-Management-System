@@ -12,7 +12,6 @@ session_start();
     <link rel="stylesheet" href="emp_dash.css">
     <title>Dashboard</title>
 </head>
-
 <body>
     <div class="navbar">
     <h2>Welcome, <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
@@ -198,7 +197,66 @@ $conn->close();
 </table>
 </div>
         </div>
+<div id="payrollSlip" class="tabcontent">
+    <?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "project_database";
 
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Calculate payroll and deduction
+$sql = "SELECT employee.emp_id, emp_name, basic, payroll_year, da, hra, pf, deduction, gross_salary, net_salary
+        FROM employee
+        INNER JOIN payroll ON employee.emp_id = payroll.emp_id";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo "<table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Basic Salary</th>
+                <th>Payroll Year</th>
+                <th>DA</th>
+                <th>HRA</th>
+                <th>PF</th>
+                <th>Deduction</th>
+                <th>Gross Salary</th>
+                <th>Net Salary</th>
+            </tr>";
+
+    while ($row = $result->fetch_assoc()) {
+        
+        echo "<tr>
+                <td>" . $row['emp_id'] . "</td>
+                <td>" . $row['emp_name'] . "</td>
+                <td>" . $row['basic'] . "</td>
+                <td>" . $row['payroll_year'] . "</td>
+                <td>" . $row['da'] . "</td>
+                <td>" . $row['hra'] . "</td>
+                <td>" . $row['pf'] . "</td>
+                <td>" . $deduction . "</td>
+                <td>" . $row['gross_salary'] . "</td>
+                <td>" . $row['net_salary'] . "</td>
+            </tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "No records found";
+}
+
+$conn->close();
+?>
+    
+</div>
 
     <script>
         function openTab(evt, tabName) {
