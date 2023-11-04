@@ -339,68 +339,7 @@ $conn->close();
 
   <div id="attendanceRegister" class="tabcontent">
     <h3>Attendance Register Content</h3>
-    <?php
-// Database connection parameters
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$database = "project_database"; // Change this to your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch employee IDs from the 'employee' table
-$employees = [];
-$sqlEmployees = "SELECT emp_id FROM employee";
-$resultEmployees = $conn->query($sqlEmployees);
-
-// Handle attendance submission (assuming form submission for marking attendance)
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $emp_id = $_POST["emp_id"];
-    $date = $_POST["date"];
-    $status = $_POST["status"];
-
-    // SQL query to insert attendance data into the 'attendance' table
-    $sqlInsertAttendance = "INSERT INTO attendance (emp_id, date, status) VALUES ('$emp_id', '$date', '$status')";
-
-    if ($conn->query($sqlInsertAttendance) === TRUE) {
-        // Display a popup message after successful attendance submission
-        echo "<script>alert('Attendance submitted successfully');</script>";
-    } else {
-        echo "Error submitting attendance: " . $conn->error;
-    }
-}
-?>
-<h2>Attendance Register</h2>
-
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <label for="emp_id">Select Employee ID:</label>
-    <select id="emp_id" name="emp_id" required>
-        <?php
-        // Output employee ID options
-        while ($row = $resultEmployees->fetch_assoc()) {
-            echo "<option value=".$row["emp_id"].">".$row["emp_id"]."</option>";
-        }
-        ?>
-    </select><br><br>
-
-    <label for="date">Select Date:</label>
-    <input type="date" id="date" name="date" required><br><br>
-
-    <label for="status">Status:</label>
-    <select id="status" name="status" required>
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-        <!-- Add more status options as needed -->
-    </select><br><br>
-
-    <input type="submit" value="Submit Attendance">
-</form>
+    
   </div>
 
 

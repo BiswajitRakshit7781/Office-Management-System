@@ -155,8 +155,102 @@ $conn->close();
   </div>
 
     <div id="viewAttendance" class="tabcontent">
-        <h3>View Attendance Content</h3>
-        <!-- View attendance content goes here -->
+    <?php 
+    $db = mysqli_connect("localhost", "root", "", "project_database") or die("Connectivity Failed");
+
+    $firstDayOfMonth = date("1-m-Y");
+    $totalDaysInMonth = date("t", strtotime($firstDayOfMonth));
+   
+    // Fetching Students 
+    $fetchingEmp = mysqli_query($db, "SELECT * FROM employee") OR die(mysqli_error($db));
+    $totalNumberOfEmp= mysqli_num_rows($fetchingEmp);
+
+    $EmpNamesArray = array();
+    $EmpIDsArray = array();
+    $counter = 0;
+    while($Emp= mysqli_fetch_assoc($fetchingEmp))
+    {
+        $EmpNamesArray[] = $Emp['emp_name'];
+        $EmpIDsArray[] = $Emp['emp_id'];
+    }
+
+
+?>
+
+<div class="container-fluid">
+        <header class="bg-primary text-white text-center mb-3 py-3">
+            <div class="row">
+                <div class="col-12">
+                    <h1>SMART ATTENDANCE MANAGEMENT SYSTEM!</h1>
+                    <h3>EMPLOYEE ATTENDANCE OF MONTH: <u><?php echo strtoupper(date("F")); ?></u></h3>
+                </div>
+            </div>
+
+           
+        </header>
+<table border="1" cellspacing="0">
+<?php 
+    for($i = 1; $i<=$totalNumberOfEmp+ 2; $i++)
+    {
+        if($i == 1)
+        {
+            echo "<tr>";
+            echo "<td rowspan='2'>Names</td>";
+            for($j = 1; $j<=$totalDaysInMonth; $j++)
+            {
+                echo "<td>$j</td>";
+            }
+            echo "</tr>";
+        }else if($i == 2)
+        {
+            echo "<tr>";
+            for($j = 0; $j<$totalDaysInMonth; $j++)
+            {
+                echo "<td>" . date("D", strtotime("+$j days", strtotime($firstDayOfMonth))) . "</td>";
+            }
+            echo "</tr>";
+        }else 
+        {
+            echo "<tr>";
+            echo "<td>" . $EmpNamesArray[$counter] . "</td>";
+            for($j = 1; $j<=$totalDaysInMonth; $j++)
+            {
+                $dateOfAttendance = date("Y-m-$j");
+                $fetchingEmpAttendance = mysqli_query($db, "SELECT status FROM attendance WHERE emp_id = '". $EmpIDsArray[$counter] ."' AND curr_date = '". $dateOfAttendance ."'") OR die(mysqli_error($db));
+                
+                $isAttendanceAdded = mysqli_num_rows($fetchingEmpAttendance);
+                if($isAttendanceAdded > 0)
+                {
+                    $EmpAttendance = mysqli_fetch_assoc($fetchingEmpAttendance);
+                    if($EmpAttendance['status'] == "P")
+                    {
+                        $color = "green";
+                    }else if($EmpAttendance['status'] == "A")
+                    {
+                        $color = "red";
+                    }else if($EmpAttendance['status'] == "H")
+                    {
+                        $color = "blue";
+                    }else if($EmpAttendance['status'] == "L")
+                    {
+                        $color = "brown";
+                    }
+
+                    echo "<td style='background-color: $color; color:white'>" . $EmpAttendance['status'] . "</td>";
+                }else {
+                    echo "<td></td>";
+                }
+               
+
+            }
+            echo "</tr>";
+            $counter++;
+        }
+    }
+?>
+</table>
+</div>
+        </div>
     </div>
 
     <div id="payrollSlip" class="tabcontent">
