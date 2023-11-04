@@ -68,7 +68,7 @@ if ($resultTasks->num_rows > 0) {
     }
 }
 ?>
-
+<h2>Tasks</h2>
 <table>
         <thead>
             <tr>
@@ -198,6 +198,7 @@ $conn->close();
 </div>
         </div>
 <div id="payrollSlip" class="tabcontent">
+    <h2>Payroll Slip</h2>
     <?php
 // Database connection
 $servername = "localhost";
