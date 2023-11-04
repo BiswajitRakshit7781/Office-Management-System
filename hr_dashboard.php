@@ -1,41 +1,57 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="hr_dashboard.css">
   <title>HR Dashboard</title>
 </head>
-<body>
-  <div class="navbar">
-    <h1>HR Dashboard</h1><a href="logout.php" style="float: right;">
-    <h3>Logout</h3></a>
-  </div>
-  <h2>Tabs</h2>
-  <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'addEmployee')"> <span></span>Add Employee</button> <button class="tablinks" onclick="openTab(event, 'projectStatistics')"><span></span>View Project Statistics</button> <button class="tablinks" onclick="openTab(event, 'payroll')"><span></span>Payroll</button> <button class="tablinks" onclick="openTab(event, 'leaveRegister')"><span></span>Leave Register</button> <button class="tablinks" onclick="openTab(event, 'attendanceRegister')"><span></span>Attendance Register</button>
-  </div><!-- Tabs Content -->
-  <div id="addEmployee" class="tabcontent">
-    <h3>Add Employee Content</h3><?php
-        // Database connection parameters
-        $servername = "localhost"; // Change this to your database server name
-        $username = "root"; // Change this to your database username
-        $password = ""; // Change this to your database password
-        $database = "project_database"; // Change this to your database name
 
-        // Create connection
+<body>
+<div class="navbar">
+    <h2>Welcome, <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
+        <a href="login.php" style="float: right;"><h3>Logout</h3></a>
+    </div>
+
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'addEmployee')"> <span></span>Add Employee</button>
+    <button class="tablinks" onclick="openTab(event, 'updateEmployee')"><span></span>Update Employee</button>
+    <button class="tablinks" onclick="openTab(event, 'deleteEmployee')"><span></span>Delete Employee</button>
+    <button class="tablinks" onclick="openTab(event, 'viewEmployee')"><span></span>View Employee</button>
+    <button class="tablinks" onclick="openTab(event, 'addProject')"><span></span>Add Project</button>
+    <button class="tablinks" onclick="openTab(event, 'projectStatistics')"><span></span>View Project Statistics</button> 
+    <button class="tablinks" onclick="openTab(event, 'payroll')"><span></span>Payroll</button> 
+    <button class="tablinks" onclick="openTab(event, 'leaveRegister')"><span></span>Leave Register</button> 
+    <button class="tablinks" onclick="openTab(event, 'attendanceRegister')"><span></span>Attendance Register</button>
+    <button class="tablinks" onclick="openTab(event, 'notice')"><span></span>Notice</button>
+  </div>
+ 
+  <div id="addEmployee" class="tabcontent">
+    <?php
+        
+        $servername = "localhost"; 
+        $username = "root";
+        $password = ""; 
+        $database = "project_database"; 
+
+       
         $conn = new mysqli($servername, $username, $password, $database);
 
-        // Check connection
+       
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Define variables to store form data
         $empName = $email = $address = $phone = $post = $password = $dateOfJoin = $basicSalary = "";
 
-        // Handle form submission
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $empid = $_POST["emp_id"];
             $empName = $_POST["emp_name"];
             $email = $_POST["email_id"];
             $address = $_POST["address"];
@@ -45,8 +61,8 @@
             $dateOfJoin = $_POST["date_of_join"];
             $basicSalary = $_POST["basic"];
 
-            // SQL query to insert data into 'employee' table
-            $insertSql = "INSERT INTO employee (emp_name, email_id, address, phone_no, post, password, date_of_join, basic) VALUES ('$empName', '$email', '$address', '$phone', '$post', '$pwd', '$dateOfJoin', '$basicSalary')";
+          
+            $insertSql = "INSERT INTO employee (emp_id,emp_name, email_id, address, phone_no, post, password, date_of_join, basic) VALUES ('$empid','$empName', '$email', '$address', '$phone', '$post', '$pwd', '$dateOfJoin', '$basicSalary')";
 
             if ($conn->query($insertSql) === TRUE) {
                 echo "New employee record created successfully";
@@ -57,29 +73,112 @@
 
         $conn->close();
         ?>
-    <form method="post" action="%3C?php%20echo%20htmlspecialchars($_SERVER[">
-      "&gt; <label for="emp_name">Employee Name:</label> <input type="text" id="emp_name" name="emp_name" required=""><br>
-      <br>
-      <label for="email_id">Email ID:</label> <input type="email" id="email_id" name="email_id" required=""><br>
-      <br>
-      <label for="address">Address:</label> 
-      <textarea id="address" name="address" required=""></textarea><br>
-      <br>
-      <label for="phone_no">Phone Number:</label> <input type="text" id="phone_no" name="phone_no" required=""><br>
-      <br>
-      <label for="post">Post:</label> <input type="text" id="post" name="post" required=""><br>
-      <br>
-      <label for="password">Password:</label> <input type="password" id="password" name="password" required=""><br>
-      <br>
-      <label for="date_of_join">Date of Join:</label> <input type="date" id="date_of_join" name="date_of_join" required=""><br>
-      <br>
-      <label for="basic">Basic Salary:</label> <input type="text" id="basic" name="basic" required=""><br>
-      <br>
-      <input type="submit" value="Add Employee">
-    </form>
-  </div>
-  <!-- <div id="projectStatistics" class="tabcontent">
-    <h3>Project Statistics Content</h3><?php
+  <div class="wrapper">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+            <h1>Add Employee</h1>
+            <div class="input-box">
+                <div class="input-field">
+                    <input type="text" name="emp_id" placeholder="Employee ID" required>
+                </div>
+                <div class="input-field">
+                    <input type="text" name="emp_name" placeholder="Full Name" required>
+                </div>
+                <div class="input-field">
+                    <input type="email" name="email_id" placeholder="Email ID" required>
+                </div>
+                <div class="input-field">
+                    <input type="text" name="address" placeholder="Address" required>
+                </div>
+                <div class="input-field">
+                    <input type="number" name="phone_no" placeholder="Phone Number" required>
+                </div>
+                <div class="input-field">
+                    <input type="date" name="date_of_join" placeholder="Date Of Join" required>
+                </div>
+                <select name="post">
+                    <option value="employee">Employee</option>
+                    <option value="manager">Project Manager</option>
+                </select>
+                <div class="input-field">
+                    <input type="int" name="basic" placeholder="Salary" required>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+            </div>
+         <button type="submit" class="btn">Add</button>
+        </form>
+    </div>
+      </div>
+
+      <div id="viewEmployee" class="tabcontent">
+      <?php
+// Database connection parameters
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$database = "project_database"; // Change this to your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch all employees from the 'employee' table
+$employees = [];
+$sqlEmployees = "SELECT * FROM employee";
+$resultEmployees = $conn->query($sqlEmployees);
+
+if ($resultEmployees->num_rows > 0) {
+    while ($row = $resultEmployees->fetch_assoc()) {
+        $employees[] = $row;
+    }
+}
+?>
+
+<table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Email ID</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Post</th>
+                <th>Date of Join</th>
+                <th>Basic</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($employees as $employee) {
+                echo "<tr>
+                        <td>{$employee['emp_id']}</td>
+                        <td>{$employee['emp_name']}</td>
+                        <td>{$employee['email_id']}</td>
+                        <td>{$employee['address']}</td>
+                        <td>{$employee['phone_no']}</td>
+                        <td>{$employee['post']}</td>
+                        <td>{$employee['date_of_join']}</td>
+                        <td>{$employee['basic']}</td>
+                      </tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+    <?php
+// Close the database connection
+$conn->close();
+?>
+      </div>
+
+
+  <div id="projectStatistics" class="tabcontent">
+    <h1>Project Statistics</h1>
+    <?php
         // Database connection parameters
         $servername = "localhost"; // Change this to your database server name
         $username = "root"; // Change this to your database username
@@ -126,16 +225,150 @@
                     }
                     ?>
     </table>
-  </div> -->
+  </div>
+
   <div id="payroll" class="tabcontent">
     <h3>Payroll Content</h3><!-- Payroll content goes here -->
   </div>
   <div id="leaveRegister" class="tabcontent">
     <h3>Leave Register Content</h3><!-- Leave register content goes here -->
   </div>
+
+
   <div id="attendanceRegister" class="tabcontent">
-    <h3>Attendance Register Content</h3><!-- Attendance register content goes here -->
+    <h3>Attendance Register Content</h3>
+    <?php
+// Database connection parameters
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$database = "project_database"; // Change this to your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch employee IDs from the 'employee' table
+$employees = [];
+$sqlEmployees = "SELECT emp_id FROM employee";
+$resultEmployees = $conn->query($sqlEmployees);
+
+// Handle attendance submission (assuming form submission for marking attendance)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $emp_id = $_POST["emp_id"];
+    $date = $_POST["date"];
+    $status = $_POST["status"];
+
+    // SQL query to insert attendance data into the 'attendance' table
+    $sqlInsertAttendance = "INSERT INTO attendance (emp_id, date, status) VALUES ('$emp_id', '$date', '$status')";
+
+    if ($conn->query($sqlInsertAttendance) === TRUE) {
+        // Display a popup message after successful attendance submission
+        echo "<script>alert('Attendance submitted successfully');</script>";
+    } else {
+        echo "Error submitting attendance: " . $conn->error;
+    }
+}
+?>
+<h2>Attendance Register</h2>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <label for="emp_id">Select Employee ID:</label>
+    <select id="emp_id" name="emp_id" required>
+        <?php
+        // Output employee ID options
+        while ($row = $resultEmployees->fetch_assoc()) {
+            echo "<option value=".$row["emp_id"].">".$row["emp_id"]."</option>";
+        }
+        ?>
+    </select><br><br>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" name="date" required><br><br>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <!-- Add more status options as needed -->
+    </select><br><br>
+
+    <input type="submit" value="Submit Attendance">
+</form>
   </div>
+
+
+
+  
+  <div id="notice" class="tabcontent">
+        <h1>Notice</h1>
+        <!-- <?php
+// Database connection parameters
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$database = "project_database"; // Change this to your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle new notice submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $notice = $_POST["notice"];
+
+    // SQL query to insert new notice into the 'notice' table with current timestamp
+    $sqlInsertNotice = "INSERT INTO notice (time, notice) VALUES (CURRENT_TIME(), '$notice')";
+
+    if ($conn->query($sqlInsertNotice) === TRUE) {
+        // Display a success message (if needed)
+        echo "<script>alert('Notice submitted successfully');</script>";
+    } else {
+        echo "Error submitting notice: " . $conn->error;
+    }
+}
+
+// Fetch existing notices from the 'notice' table
+$notices = [];
+$sqlNotices = "SELECT * FROM notice ORDER BY time DESC";
+$resultNotices = $conn->query($sqlNotices);
+
+if ($resultNotices->num_rows > 0) {
+    while ($row = $resultNotices->fetch_assoc()) {
+        $notices[] = $row;
+    }
+}
+?> -->
+
+<!-- <h3>Existing Notices:</h3>
+    <ul>
+        <?php
+        foreach ($notices as $notice) {
+            echo "<li> {$notice['time']} - {$notice['notice']}</li>";
+        }
+        ?>
+    </ul>
+
+    <!-- Form to submit new notice -->
+    <!-- <h3>Write New Notice:</h3>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <label for="notice">Notice:</label><br>
+        <textarea id="notice" name="notice" rows="4" cols="50" required></textarea><br><br>
+        <input type="submit" value="Submit Notice">
+    </form> -->
+    <?php
+// Close the database connection
+$conn->close();
+?>
+</div> -->
   <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;

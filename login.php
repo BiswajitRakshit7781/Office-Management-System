@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 if($_SERVER["REQUEST_METHOD"]=="POST"){
   $email = $_POST['email'];
   $post = $_POST['post'];
@@ -18,6 +21,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
   $result = $conn->query($query);
 
   if($result->num_rows == 1){
+    $row = $result->fetch_assoc();
+    $_SESSION['emp_id'] = $row['emp_id']; // Set user ID in session variable
+    $_SESSION['emp_name'] = $row['emp_name'];
     switch ($post) {
       case 'HR':
           header('Location: hr_dashboard.php');
