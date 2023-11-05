@@ -29,15 +29,8 @@ body {
     padding: 14px 16px;
     text-decoration: none;
 }
-.navbar h1 {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-.navbar h3 {
+
+.navbar h2 {
     float: left;
     display: block;
     color: white;
@@ -149,20 +142,21 @@ button:hover{
 }
 
 #addTask h1{
-    font-size: 36px;
     text-align: center;
     margin-bottom: 20px;
 	color: #fff; 
 }
 
 #addTask form {
-    margin-top: 20px;
+    max-width: 500px;
+    margin: 20px auto;
     width: 300px;
 }
 
 #addTask label {
-    display: block;
+    /* display: block; */
     margin-bottom: 10px;
+    color: #fff;
 }
 
 #addTask select, input[type="text"], input[type="submit"] {
@@ -193,8 +187,16 @@ button:hover{
     margin-top: 20px;
 }
 
+#notice h1 {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
 #notice h3 {
-    margin-top: 20px;
+    color: #fff;
 }
 
 #notice ul {
@@ -214,12 +216,13 @@ button:hover{
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: transparent;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 #notice label {
+    color: #fff;
     display: block;
     margin-bottom: 10px;
 }
@@ -238,6 +241,7 @@ button:hover{
     background-color: #4caf50;
     color: white;
     border: none;
+    margin-left: 172px;
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -246,4 +250,24 @@ button:hover{
 
 #notice input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+#viewAttendance .container-fluid h2{
+    text-align: center;
+    margin-bottom: 20px;
+	color: #fff;
+}
+#viewAttendance table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	background-color: #fff;
+}
+#viewAttendance th, td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+}
+#viewAttendance th {
+	background-color: #f2f2f2;
 }

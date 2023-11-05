@@ -16,7 +16,7 @@ session_start();
 <body>
 <div class="navbar">
     <h2>Welcome, <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
-        <a href="login.php" style="float: right;"><h3>Logout</h3></a>
+        <a href="logout.php" style="float: right;"><h3>Logout</h3></a>
     </div>
 
   <div class="tab">
@@ -27,54 +27,13 @@ session_start();
     <button class="tablinks" onclick="openTab(event, 'addProject')"><span></span>Add Project</button>
     <button class="tablinks" onclick="openTab(event, 'projectStatistics')"><span></span>View Project Statistics</button> 
     <button class="tablinks" onclick="openTab(event, 'payroll')"><span></span>Payroll</button> 
-    <button class="tablinks" onclick="openTab(event, 'leaveRegister')"><span></span>Leave Register</button> 
     <button class="tablinks" onclick="openTab(event, 'attendanceRegister')"><span></span>Attendance Register</button>
     <button class="tablinks" onclick="openTab(event, 'notice')"><span></span>Notice</button>
   </div>
  
   <div id="addEmployee" class="tabcontent">
-    <?php
-        
-        $servername = "localhost"; 
-        $username = "root";
-        $password = ""; 
-        $database = "project_database"; 
-
-       
-        $conn = new mysqli($servername, $username, $password, $database);
-
-       
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        $empName = $email = $address = $phone = $post = $password = $dateOfJoin = $basicSalary = "";
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $empid = $_POST["emp_id"];
-            $empName = $_POST["emp_name"];
-            $email = $_POST["email_id"];
-            $address = $_POST["address"];
-            $phone = $_POST["phone_no"];
-            $post = $_POST["post"];
-            $pwd = $_POST["password"];
-            $dateOfJoin = $_POST["date_of_join"];
-            $basicSalary = $_POST["basic"];
-
-          
-            $insertSql = "INSERT INTO employee (emp_id,emp_name, email_id, address, phone_no, post, password, date_of_join, basic) VALUES ('$empid','$empName', '$email', '$address', '$phone', '$post', '$pwd', '$dateOfJoin', '$basicSalary')";
-
-            if ($conn->query($insertSql) === TRUE) {
-                echo "New employee record created successfully";
-            } else {
-                echo "Error: " . $insertSql . "<br>" . $conn->error;
-            }
-        }
-
-        $conn->close();
-        ?>
   <div class="wrapper">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        <form action="addEmployee.php" method="post">
             <h1>Add Employee</h1>
             <div class="input-box">
                 <div class="input-field">
@@ -108,158 +67,44 @@ session_start();
             </div>
          <button type="submit" class="btn">Add</button>
         </form>
-    </div>
+</div>
 </div>
 
 <div id="updateEmployee" class="tabcontent">
-        
+<h2>Update Employee</h2>
+<?php require_once("updateEmp.php"); ?>
+    <!-- Form to select employee ID and update details -->
+    <form method="post" action="updateEmp.php">
+        <label for="employee_id">Select Employee ID:</label>
+        <select id="employee_id" name="employee_id" required>
+            <option value="" disabled selected>Select Employee ID</option>
+            <?php
+            foreach ($employeeIds as $empId) {
+                echo "<option value='$empId'>$empId</option>";
+            }
+            ?>
+        </select>
+        <input type="submit" value="Select Employee">
+    </form>
     </div>
 
 <div id="deleteEmployee" class="tabcontent">
-<?php
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_database";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve employee ID from the form
-    $emp_id = $_POST["emp_id"];
-
-    // Delete employee data from the database
-    $sql = "DELETE FROM employee WHERE emp_id = $emp_id";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Employee data deleted successfully";
-    } else {
-        echo "Error deleting employee data: " . $conn->error;
-    }
-}
-
-// Close the database connection
-$conn->close();
-?>
-<form action="delete_employee.php" method="post">
+<h2>Delete Employee</h2>
+<form action="deleteEmp.php" method="post">
     <label for="emp_id">Employee ID to Delete:</label>
     <input type="text" name="emp_id" required><br>
 
     <input type="submit" value="Delete Employee">
 </form>
-    </div>
+</div>
 
 
 <div id="viewEmployee" class="tabcontent">
-      <?php
-// Database connection parameters
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$database = "project_database"; // Change this to your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch all employees from the 'employee' table
-$employees = [];
-$sqlEmployees = "SELECT * FROM employee";
-$resultEmployees = $conn->query($sqlEmployees);
-
-if ($resultEmployees->num_rows > 0) {
-    while ($row = $resultEmployees->fetch_assoc()) {
-        $employees[] = $row;
-    }
-}
-?>
-
-<table>
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th>Employee Name</th>
-                <th>Email ID</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-                <th>Post</th>
-                <th>Date of Join</th>
-                <th>Basic</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($employees as $employee) {
-                echo "<tr>
-                        <td>{$employee['emp_id']}</td>
-                        <td>{$employee['emp_name']}</td>
-                        <td>{$employee['email_id']}</td>
-                        <td>{$employee['address']}</td>
-                        <td>{$employee['phone_no']}</td>
-                        <td>{$employee['post']}</td>
-                        <td>{$employee['date_of_join']}</td>
-                        <td>{$employee['basic']}</td>
-                      </tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-    <?php
-// Close the database connection
-$conn->close();
-?>
+<?php require_once("viewEmp.php"); ?>
       </div>
 
 <div id="addProject" class="tabcontent">
-<?php
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_database";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $project_id = $_POST["project_id"];
-    $project_name = $_POST["project_name"];
-    $description = $_POST["description"];
-    $starting_date = $_POST["starting_date"];
-    $ending_date = $_POST["ending_date"];
-
-    // Insert project data into the database
-    $sql = "INSERT INTO project (project_id,project_name, description, starting_date, ending_date) 
-            VALUES ('$project_id'.'$project_name', '$description', '$starting_date', '$ending_date')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Project added successfully";
-    } else {
-        echo "Error adding project: " . $conn->error;
-    }
-}
-
-// Close the database connection
-$conn->close();
-?>
-<form action="add_project.php" method="post">
+<form action="addProj.php" method="post">
     <label for="project_id">Project ID:</label>
     <input type="text" name="project_id" required><br>
 
@@ -278,187 +123,23 @@ $conn->close();
     <input type="submit" value="Add Project">
 </form>
 </div>
+
   <div id="projectStatistics" class="tabcontent">
-    <h1>Project Statistics</h1>
-    <?php
-        // Database connection parameters
-        $servername = "localhost"; // Change this to your database server name
-        $username = "root"; // Change this to your database username
-        $password = ""; // Change this to your database password
-        $database = "project_database"; // Change this to your database name
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $database);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // SQL query to fetch all data from the 'project' table
-        $sql = "SELECT * FROM project";
-        $result = $conn->query($sql);
-        ?>
-    <table>
-      <tr>
-        <th>Project ID</th>
-        <th>Project Name</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Progression</th>
-        <th>Starting Date</th>
-        <th>Ending Date</th>
-      </tr><?php
-                    if ($result->num_rows > 0) {
-                        // Output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr>
-                                    <td>".$row["project_id"]."</td>
-                                    <td>".$row["project_name"]."</td>
-                                    <td>".$row["description"]."</td>
-                                    <td>".$row["status"]."</td>
-                                    <td>".$row["progression"]."</td>
-                                    <td>".$row["starting_date"]."</td>
-                                    <td>".$row["ending_date"]."</td>
-                                  </tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='7'>No projects found</td></tr>";
-                    }
-                    ?>
-    </table>
+   <?php require_once("projectStat.php"); ?>
   </div>
 
   <div id="payroll" class="tabcontent">
-    <h3>Payroll Content</h3><!-- Payroll content goes here -->
-    <?php
-// // Connect to the database
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "project_database";
-
-// $conn = new mysqli($servername, $username, $password, $dbname);
-
-// // Check connection
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-
-// // Fetch data from the "attendance" table
-// $sql = "SELECT * FROM attendance";
-// $result = $conn->query($sql);
-
-// if ($result->num_rows > 0) {
-//     while ($row = $result->fetch_assoc()) {
-//         // Get attendance details
-//         $empId = $row["emp_id"];
-//         $attendanceMonth = $row["attendance_month"];
-//         $attendanceYear = $row["attendance_year"];
-//         $status = $row["status"];
-
-//         // Fetch basic salary from the "employee" table
-//         $employeeSql = "SELECT basic FROM employee WHERE emp_id = $empId";
-//         $employeeResult = $conn->query($employeeSql);
-
-//         if ($employeeResult->num_rows > 0) {
-//             $employeeRow = $employeeResult->fetch_assoc();
-//             $basicSalary = $employeeRow["basic"];
-
-//             // Calculate deduction based on attendance status
-//             $deduction = ($status == 'A') ? ($basicSalary / 30) : 0;
-
-//             // Calculate other payroll components (you can customize these formulas)
-//             $pf = 0.12 * $basicSalary;
-//             $da = 0.05 * $basicSalary;
-//             $hra = 0.08 * $basicSalary;
-//             $grossSalary = $basicSalary + $da + $hra;
-//             $netSalary = $grossSalary - $deduction;
-
-//             // Insert or update the payroll information in the "payroll" table
-//             $payrollSql = "INSERT INTO payroll (emp_id, payroll_year, payroll_month, da, hra, pf, deduction, gross_salary, net_salary) 
-//                            VALUES ($empId, $attendanceYear, $attendanceMonth, $da, $hra, $pf, $deduction, $grossSalary, $netSalary)
-//                            ON DUPLICATE KEY UPDATE 
-//                            da = VALUES(da), hra = VALUES(hra), pf = VALUES(pf), deduction = VALUES(deduction), 
-//                            gross_salary = VALUES(gross_salary), net_salary = VALUES(net_salary)";
-
-//             if ($conn->query($payrollSql) === TRUE) {
-//                 echo "Payroll calculation and update successful for emp_id: $empId, month: $attendanceMonth, year: $attendanceYear <br>";
-//             } else {
-//                 echo "Error: " . $payrollSql . "<br>" . $conn->error;
-//             }
-//         } else {
-//             echo "Employee not found for emp_id: $empId <br>";
-//         }
-//     }
-// } else {
-//     echo "No attendance records found.";
-// }
-
-// // Close the connection
-// $conn->close();
-?>
+    <?php require_once("payroll.php"); ?>
   </div>
-
-
-  <div id="leaveRegister" class="tabcontent">
-    <h3>Leave Register Content</h3><!-- Leave register content goes here -->
-  </div>
-
 
   <div id="attendanceRegister" class="tabcontent">
     <h3>Attendance Register Content</h3>
-    
   </div>
 
-
-
-  
   <div id="notice" class="tabcontent">
-        <h1>Notice</h1>
-        <!-- <?php
-// Database connection parameters
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$database = "project_database"; // Change this to your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle new notice submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $notice = $_POST["notice"];
-
-    // SQL query to insert new notice into the 'notice' table with current timestamp
-    $sqlInsertNotice = "INSERT INTO notice (time, notice) VALUES (CURRENT_TIME(), '$notice')";
-
-    if ($conn->query($sqlInsertNotice) === TRUE) {
-        // Display a success message (if needed)
-        echo "<script>alert('Notice submitted successfully');</script>";
-    } else {
-        echo "Error submitting notice: " . $conn->error;
-    }
-}
-
-// Fetch existing notices from the 'notice' table
-$notices = [];
-$sqlNotices = "SELECT * FROM notice ORDER BY time DESC";
-$resultNotices = $conn->query($sqlNotices);
-
-if ($resultNotices->num_rows > 0) {
-    while ($row = $resultNotices->fetch_assoc()) {
-        $notices[] = $row;
-    }
-}
-?> -->
-
-<!-- <h3>Existing Notices:</h3>
+  <h1>Notice</h1>
+  <?php require_once("editNotice.php"); ?>
+  <h3>Existing Notices:</h3>
     <ul>
         <?php
         foreach ($notices as $notice) {
@@ -466,19 +147,14 @@ if ($resultNotices->num_rows > 0) {
         }
         ?>
     </ul>
-
-    <!-- Form to submit new notice -->
-    <!-- <h3>Write New Notice:</h3>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <h3>Write New Notice:</h3>
+    <form method="post" action="editNotice.php">
         <label for="notice">Notice:</label><br>
         <textarea id="notice" name="notice" rows="4" cols="50" required></textarea><br><br>
         <input type="submit" value="Submit Notice">
-    </form> -->
-    <?php
-// Close the database connection
-$conn->close();
-?>
+    </form>
 </div> 
+
   <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;

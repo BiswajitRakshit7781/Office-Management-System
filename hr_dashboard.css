@@ -184,7 +184,9 @@ box-sizing: border-box;
 }
 
 #deleteEmployee form {
-    background-color: #fff;
+    max-width: 20%;
+    margin: 20px auto;
+    background-color: transparent;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -192,11 +194,12 @@ box-sizing: border-box;
 
 #deleteEmployee h2 {
     text-align: center;
-    color: #333;
+    color: #fff;
 }
 
 #deleteEmployee label {
     display: block;
+    color: #fff;
     margin-bottom: 8px;
 }
 
@@ -292,40 +295,12 @@ box-sizing: border-box;
     background-color: #45a049;
 }
 
-#attendanceRegister #calendar-container {
-	margin-top: 20px;
-}
-
-#attendanceRegister #calendar {
-	font-family: Arial, sans-serif;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-#attendanceRegister #calendar th,
-#calendar td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: center;
-}
-
-#attendanceRegister #calendar th {
-	background-color: #f2f2f2;
-}
-
-#attendanceRegister #calendar td:hover {
-	background-color: #f0f0f0;
-	cursor: pointer;
-}
-
-
 #notice h2 {
     text-align: center;
     margin-top: 20px;
 }
 
 #notice h1 {
-    float: left;
     display: block;
     color: white;
     text-align: center;
@@ -334,7 +309,6 @@ box-sizing: border-box;
 }
 
 #notice h3 {
-    margin-top: 20px;
     color: #fff;
 }
 
@@ -355,12 +329,13 @@ box-sizing: border-box;
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: transparent;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 #notice label {
+    color: #fff;
     display: block;
     margin-bottom: 10px;
 }
@@ -379,6 +354,7 @@ box-sizing: border-box;
     background-color: #4caf50;
     color: white;
     border: none;
+    margin-left: 172px;
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -390,7 +366,9 @@ box-sizing: border-box;
 }
 
 #addProject form {
-    background-color: #fff;
+    background-color: transparent;
+    max-width: 25%;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -398,12 +376,13 @@ box-sizing: border-box;
 
 #addProject h2 {
     text-align: center;
-    color: #333;
+    color: #fff;
 }
 
 #addProject label {
     display: block;
     margin-bottom: 8px;
+    color: #fff;
 }
 
 #addProject input, textarea, select {
@@ -414,7 +393,7 @@ box-sizing: border-box;
 }
 
 #addProject input[type="submit"] {
-    background-color: #3498db;
+    background-color: #4caf50;
     color: #fff;
     cursor: pointer;
 }
@@ -457,4 +436,49 @@ box-sizing: border-box;
 
 #payroll div {
     padding: 20px;
+}
+
+#updateEmployee h2, h3 {
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#updateEmployee form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#updateEmployee label {
+    color: #fff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#updateEmployee select, input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#updateEmployee input[type="submit"] {
+    width: auto;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    margin-left: 172px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#updateEmployee input[type="submit"]:hover {
+    background-color: #45a049;
 }

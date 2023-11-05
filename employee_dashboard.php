@@ -100,6 +100,35 @@ $conn->close();
 ?>
     </div>
 
+    <div id="updateProjectStatistics" class="tabcontent">
+
+<h2>Update Project Statistics</h2>
+<?php require_once("updateStat.php"); ?>
+ <form method="post" action="updateStat.php">
+  <label for="project_id">Select Project:</label>
+    <select id="project_id" name="project_id">
+    <?php
+    // Output project options
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<option value=".$row["project_id"].">".$row["project_name"]."</option>";
+        }
+    } else {
+        echo "<option value=''>No projects found</option>";
+    }
+    ?>
+</select><br><br>
+
+<label for="status">Update Status:</label>
+<input type="text" id="status" name="status" required>
+<label for="progression">Update Progression:</label>
+<input type="text" id="progression" name="progression" required>
+<br><br>
+
+<input type="submit" value="Update Statistics">
+</form>
+</div>
+
     <div id='viewAttendance' class="tabcontent">
     <?php 
     $db = mysqli_connect("localhost", "root", "", "project_database") or die("Connectivity Failed");
@@ -199,64 +228,50 @@ $conn->close();
         </div>
 <div id="payrollSlip" class="tabcontent">
     <h2>Payroll Slip</h2>
-    <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_database";
+</div>
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+<div id="notice" class="tabcontent">
+        <h1>Notice</h1>
+        <?php
+// Database connection parameters
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$database = "project_database"; // Change this to your database name
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Calculate payroll and deduction
-$sql = "SELECT employee.emp_id, emp_name, basic, payroll_year, da, hra, pf, deduction, gross_salary, net_salary
-        FROM employee
-        INNER JOIN payroll ON employee.emp_id = payroll.emp_id";
-$result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    echo "<table>
-            <tr>
-                <th>Employee ID</th>
-                <th>Employee Name</th>
-                <th>Basic Salary</th>
-                <th>Payroll Year</th>
-                <th>DA</th>
-                <th>HRA</th>
-                <th>PF</th>
-                <th>Deduction</th>
-                <th>Gross Salary</th>
-                <th>Net Salary</th>
-            </tr>";
+// Fetch existing notices from the 'notice' table
+$notices = [];
+$sqlNotices = "SELECT * FROM notice ORDER BY time DESC";
+$resultNotices = $conn->query($sqlNotices);
 
-    while ($row = $result->fetch_assoc()) {
-        
-        echo "<tr>
-                <td>" . $row['emp_id'] . "</td>
-                <td>" . $row['emp_name'] . "</td>
-                <td>" . $row['basic'] . "</td>
-                <td>" . $row['payroll_year'] . "</td>
-                <td>" . $row['da'] . "</td>
-                <td>" . $row['hra'] . "</td>
-                <td>" . $row['pf'] . "</td>
-                <td>" . $deduction . "</td>
-                <td>" . $row['gross_salary'] . "</td>
-                <td>" . $row['net_salary'] . "</td>
-            </tr>";
+if ($resultNotices->num_rows > 0) {
+    while ($row = $resultNotices->fetch_assoc()) {
+        $notices[] = $row;
     }
-
-    echo "</table>";
-} else {
-    echo "No records found";
 }
+?>
 
+<h3>Existing Notices:</h3>
+    <ul>
+        <?php
+        foreach ($notices as $notice) {
+            echo "<li> {$notice['time']} - {$notice['notice']}</li>";
+        }
+        ?>
+    </ul>
+    <?php
+// Close the database connection
 $conn->close();
 ?>
-    
 </div>
 
     <script>
