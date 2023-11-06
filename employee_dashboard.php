@@ -15,7 +15,7 @@ session_start();
 <body>
     <div class="navbar">
     <h2>Welcome, <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
-        <a href="login.php" style="float: right;"><h3>Logout</h3></a>
+        <a href="logout.php" style="float: right;"><h3>Logout</h3></a>
     </div>
     
     <div class="tab">

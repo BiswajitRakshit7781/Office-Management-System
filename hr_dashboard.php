@@ -119,6 +119,7 @@ session_start();
 
 
 <div id="viewEmployee" class="tabcontent">
+    <h2>View Employees</h2>
 <?php require_once("viewEmp.php"); ?>
       </div>
 

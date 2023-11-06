@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emp_id = $_POST["emp_id"];
 
     // Delete employee data from the database
-    $sql = "DELETE FROM employee WHERE emp_id = $emp_id";
+    $sql = "DELETE FROM employee WHERE emp_id = '$emp_id' ";
 
     if ($conn->query($sql) === TRUE) {
         echo "Employee data deleted successfully";
