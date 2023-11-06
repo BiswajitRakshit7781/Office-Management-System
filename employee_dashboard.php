@@ -99,9 +99,7 @@ if ($resultTasks->num_rows > 0) {
 $conn->close();
 ?>
     </div>
-
-    <div id="updateProjectStatistics" class="tabcontent">
-
+<div id="updateProjectStatistics" class="tabcontent">
 <h2>Update Project Statistics</h2>
 <?php require_once("updateStat.php"); ?>
  <form method="post" action="updateStat.php">
