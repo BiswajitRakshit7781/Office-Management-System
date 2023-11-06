@@ -149,6 +149,7 @@ button:hover{
 
 #addTask form {
     max-width: 500px;
+    border: 1px solid #fff;
     margin: 20px auto;
     width: 300px;
 }

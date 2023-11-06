@@ -137,8 +137,8 @@ session_start();
         <header class="bg-primary text-white text-center mb-3 py-3">
             <div class="row">
                 <div class="col-12">
-                    <h1>SMART ATTENDANCE MANAGEMENT SYSTEM!</h1>
-                    <h3>EMPLOYEE ATTENDANCE OF MONTH: <u><?php echo strtoupper(date("F")); ?></u></h3>
+                    <h2>Attendance<br>
+                    Month: <u><?php echo strtoupper(date("F")); ?></u></h2>
                 </div>
             </div>
 

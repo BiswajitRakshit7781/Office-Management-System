@@ -72,9 +72,8 @@ session_start();
 
 <div id="updateEmployee" class="tabcontent">
 <h2>Update Employee</h2>
-<?php require_once("updateEmp.php"); ?>
-    <!-- Form to select employee ID and update details -->
-    <form method="post" action="updateEmp.php">
+<?php require_once("fetchEmp.php"); ?>
+    <form method="post" action="fetchEmp.php">
         <label for="employee_id">Select Employee ID:</label>
         <select id="employee_id" name="employee_id" required>
             <option value="" disabled selected>Select Employee ID</option>
@@ -86,6 +85,26 @@ session_start();
         </select>
         <input type="submit" value="Select Employee">
     </form>
+    <?php require_once("fetchEmp.php");
+    if ($selectedEmployeeName): ?>
+        <h3>Selected Employee: <?php echo $selectedEmployeeName; ?></h3>
+        <form method="post" action="updateEmp.php">
+            <input type="hidden" name="employee_id" value="<?php echo $selectedEmployeeId; ?>">
+            <label for="email_id">Email ID:</label>
+            <input type="email" id="email_id" name="email_id" required><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required><br>
+            <label for="phone_no">Phone Number:</label>
+            <input type="tel" id="phone_no" name="phone_no" required><br>
+            <label for="post">Post:</label>
+            <input type="text" id="post" name="post" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <label for="basic">Basic:</label>
+            <input type="text" id="basic" name="basic" required><br>
+            <input type="submit" name="update" value="Update Details">
+        </form>
+    <?php endif; ?>
     </div>
 
 <div id="deleteEmployee" class="tabcontent">
@@ -129,7 +148,9 @@ session_start();
   </div>
 
   <div id="payroll" class="tabcontent">
-    <?php require_once("payroll.php"); ?>
+    <?php 
+    // require_once("payroll.php"); 
+    ?>
   </div>
 
   <div id="attendanceRegister" class="tabcontent">

@@ -13,20 +13,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all employee IDs from the 'employee' table
-$employeeIds = [];
-$sqlEmployeeIds = "SELECT emp_id FROM employee";
-$resultEmployeeIds = $conn->query($sqlEmployeeIds);
-
-if ($resultEmployeeIds->num_rows > 0) {
-    while ($row = $resultEmployeeIds->fetch_assoc()) {
-        $employeeIds[] = $row['emp_id'];
-    }
-}
-
-// Initialize variables
-$selectedEmployeeName = "";
-$selectedEmployeeId = "";
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -62,29 +48,5 @@ if (isset($_POST['update'])) {
         echo "Error updating employee details: " . $conn->error;
     }
 }
-?>
-    <?php if ($selectedEmployeeName): ?>
-        <h3>Selected Employee: <?php echo $selectedEmployeeName; ?></h3>
-        <form method="post" action="updateEmp.php">
-            <input type="hidden" name="employee_id" value="<?php echo $selectedEmployeeId; ?>">
-            <label for="email_id">Email ID:</label>
-            <input type="email" id="email_id" name="email_id" required><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required><br>
-            <label for="phone_no">Phone Number:</label>
-            <input type="tel" id="phone_no" name="phone_no" required><br>
-            <label for="post">Post:</label>
-            <input type="text" id="post" name="post" required><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
-            <label for="basic">Basic:</label>
-            <input type="text" id="basic" name="basic" required><br>
-            <input type="submit" name="update" value="Update Details">
-        </form>
-    <?php endif; ?>
-
-<?php
-// Close the database connection
 $conn->close();
 ?>
-
