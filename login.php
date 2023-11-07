@@ -1,47 +1,69 @@
 <?php
 
-session_start();
+class Database {
+    private $servername = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $database = "project_database";
+    private $conn;
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-  $email = $_POST['email'];
-  $post = $_POST['post'];
-  $pwd = $_POST['password'];
+    public function __construct() {
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->database);
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
 
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-      $database = "project_database";
+    public function verifyUser($email, $post, $pwd) {
+        $query = "SELECT * FROM employee WHERE email_id='$email' AND post='$post' AND password='$pwd'";
+        $result = $this->conn->query($query);
 
-      $conn = mysqli_connect($servername, $username, $password, $database);
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $_SESSION['emp_id'] = $row['emp_id'];
+            $_SESSION['emp_name'] = $row['emp_name'];
+            switch ($post) {
+                case 'HR':
+                    header('Location: hr_dashboard.php');
+                    break;
+                case 'Manager':
+                    header('Location: manager_dashboard.php');
+                    break;
+                case 'Employee':
+                    header('Location: employee_dashboard.php');
+                    break;
+            }
+        } else {
+            header('Location: error.html');
+        }
+    }
 
-  if($conn->connect_error){
-    die("Connection failed: ". $conn->connect_error);
-  }
-  $query = "SELECT * FROM employee WHERE email_id='$email' AND post='$post' AND password='$pwd'";
-  $result = $conn->query($query);
-
-  if($result->num_rows == 1){
-    $row = $result->fetch_assoc();
-    $_SESSION['emp_id'] = $row['emp_id']; // Set user ID in session variable
-    $_SESSION['emp_name'] = $row['emp_name'];
-    switch ($post) {
-      case 'HR':
-          header('Location: hr_dashboard.php');
-          break;
-      case 'Manager':
-          header('Location: manager_dashboard.php');
-          break;
-      case 'Employee':
-          header('Location: employee_dashboard.php');
-          break;
-      }
-  }
-  else{
-    header('Location: error.html');
-  }
-  $conn->close();
+    public function closeConnection() {
+        $this->conn->close();
+    }
 }
+
+class UserAuthentication {
+    public function loginUser() {
+        session_start();
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = $_POST['email'];
+            $post = $_POST['post'];
+            $pwd = $_POST['password'];
+
+            $db = new Database();
+            $db->verifyUser($email, $post, $pwd);
+            $db->closeConnection();
+        }
+    }
+}
+
+$auth = new UserAuthentication();
+$auth->loginUser();
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

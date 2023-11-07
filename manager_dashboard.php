@@ -216,7 +216,7 @@ session_start();
 
 <div id="notice" class="tabcontent">
   <h1>Notice</h1>
-  <?php require_once("editNotice.php"); ?>
+  <?php require_once("viewNotice.php"); ?>
   <h3>Existing Notices:</h3>
     <ul>
         <?php

@@ -159,7 +159,33 @@ session_start();
 
   <div id="notice" class="tabcontent">
   <h1>Notice</h1>
-  <?php require_once("editNotice.php"); ?>
+  <?php
+// Database connection parameters
+$servername = "localhost"; // Change this to your database server name
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$database = "project_database"; // Change this to your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+// Fetch existing notices from the 'notice' table
+$notices = [];
+$sqlNotices = "SELECT * FROM notice ORDER BY time DESC";
+$resultNotices = $conn->query($sqlNotices);
+
+if ($resultNotices->num_rows > 0) {
+    while ($row = $resultNotices->fetch_assoc()) {
+        $notices[] = $row;
+    }
+}
+?>
   <h3>Existing Notices:</h3>
     <ul>
         <?php

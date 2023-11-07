@@ -1,42 +1,47 @@
 <?php
-// Database connection parameters
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$database = "project_database"; // Change this to your database name
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+class Database {
+    private $conn;
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    public function __construct($servername, $username, $password, $database) {
+        $this->conn = new mysqli($servername, $username, $password, $database);
+
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
+
+    public function addNotice($notice) {
+        $sqlInsertNotice = "INSERT INTO notice (time, notice) VALUES (CURRENT_TIME(), '$notice')";
+
+        if ($this->conn->query($sqlInsertNotice) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function closeConnection() {
+        $this->conn->close();
+    }
 }
 
-// Handle new notice submission
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "project_database";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $notice = $_POST["notice"];
 
-    // SQL query to insert new notice into the 'notice' table with current timestamp
-    $sqlInsertNotice = "INSERT INTO notice (time, notice) VALUES (CURRENT_TIME(), '$notice')";
-
-    if ($conn->query($sqlInsertNotice) === TRUE) {
-        // Display a success message (if needed)
+    $db = new Database($servername, $username, $password, $database);
+    if ($db->addNotice($notice)) {
         echo "<script>alert('Notice submitted successfully');</script>";
     } else {
         echo "Error submitting notice: " . $conn->error;
     }
+    $db->closeConnection();
 }
 
-// Fetch existing notices from the 'notice' table
-$notices = [];
-$sqlNotices = "SELECT * FROM notice ORDER BY time DESC";
-$resultNotices = $conn->query($sqlNotices);
-
-if ($resultNotices->num_rows > 0) {
-    while ($row = $resultNotices->fetch_assoc()) {
-        $notices[] = $row;
-    }
-}
-$conn->close();
 ?>

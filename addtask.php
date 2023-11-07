@@ -1,33 +1,45 @@
-<<?php
-// Database connection parameters
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$database = "project_database"; // Change this to your database name
+<?php
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+class Database {
+    private $conn;
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    public function __construct($servername, $username, $password, $database) {
+        $this->conn = new mysqli($servername, $username, $password, $database);
+
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
+
+    public function addTask($project_id, $emp_id, $role) {
+        $sqlInsertTask = "INSERT INTO task (project_id, emp_id, role) VALUES ('$project_id', '$emp_id', '$role')";
+
+        if ($this->conn->query($sqlInsertTask) === TRUE) {
+            echo "Task added successfully.";
+        } else {
+            echo "Error adding task: " . $this->conn->error;
+        }
+    }
+
+    public function closeConnection() {
+        $this->conn->close();
+    }
 }
 
-// Handle form submission
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "project_database";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $project_id = $_POST["project_id"];
     $emp_id = $_POST["emp_id"];
     $role = $_POST["role"];
 
-    // SQL query to insert task data into the 'task' table
-    $sqlInsertTask = "INSERT INTO task (project_id, emp_id, role) VALUES ('$project_id', '$emp_id', '$role')";
-
-    if ($conn->query($sqlInsertTask) === TRUE) {
-        echo "Task added successfully.";
-    } else {
-        echo "Error adding task: " . $conn->error;
-    }
+    $db = new Database($servername, $username, $password, $database);
+    $db->addTask($project_id, $emp_id, $role);
+    $db->closeConnection();
 }
 
-$conn->close();
 ?>
