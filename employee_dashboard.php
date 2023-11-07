@@ -15,7 +15,7 @@ session_start();
 <body>
     <div class="navbar">
     <h2>Welcome, <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
-        <a href="logout.php" style="float: right;"><h3>Logout</h3></a>
+        <a href="login.php" style="float: right;"><h3>Logout</h3></a>
     </div>
     
     <div class="tab">
@@ -26,50 +26,9 @@ session_start();
         <button class="tablinks" onclick="openTab(event, 'notice')"><span></span>Notice</button>
     </div>
 
-    <div id="viewTask" class="tabcontent">
-    <?php
-// Start session to access session variables
-// session_start();
-
-// Database connection parameters
-$servername = "localhost"; // Change this to your database server name
-$username = "root"; // Change this to your database username
-$password = ""; // Change this to your database password
-$database = "project_database"; // Change this to your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if employee is logged in (you might want to add additional authentication logic)
-if (!isset($_SESSION['emp_id'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
-    exit();
-}
-
-$emp_id = $_SESSION['emp_id'];
-
-// Fetch tasks assigned to the logged-in employee
-$tasks = [];
-$sqlTasks = "SELECT e.emp_id, e.emp_name, p.project_id, p.project_name, t.role
-            FROM task t
-            INNER JOIN employee e ON t.emp_id = e.emp_id
-            INNER JOIN project p ON t.project_id = p.project_id
-            WHERE t.emp_id = '$emp_id'";
-$resultTasks = $conn->query($sqlTasks);
-
-if ($resultTasks->num_rows > 0) {
-    while ($row = $resultTasks->fetch_assoc()) {
-        $tasks[] = $row;
-    }
-}
-?>
+<div id="viewTask" class="tabcontent">
 <h2>Tasks</h2>
-<table>
+    <table>
         <thead>
             <tr>
                 <th>Employee ID</th>
@@ -80,7 +39,7 @@ if ($resultTasks->num_rows > 0) {
             </tr>
         </thead>
         <tbody>
-            <?php
+            <?php require_once("viewTask.php");
             foreach ($tasks as $task) {
                 echo "<tr>
                         <td>{$task['emp_id']}</td>
@@ -94,12 +53,10 @@ if ($resultTasks->num_rows > 0) {
         </tbody>
     </table>
 
-<?php
-// Close the database connection
-$conn->close();
-?>
-    </div>
-<div id="updateProjectStatistics" class="tabcontent">
+</div>
+
+    <div id="updateProjectStatistics" class="tabcontent">
+
 <h2>Update Project Statistics</h2>
 <?php require_once("updateStat.php"); ?>
  <form method="post" action="updateStat.php">
@@ -127,29 +84,7 @@ $conn->close();
 </form>
 </div>
 
-    <div id='viewAttendance' class="tabcontent">
-    <?php 
-    $db = mysqli_connect("localhost", "root", "", "project_database") or die("Connectivity Failed");
-
-    $firstDayOfMonth = date("1-m-Y");
-    $totalDaysInMonth = date("t", strtotime($firstDayOfMonth));
-   
-    // Fetching Students 
-    $fetchingEmp = mysqli_query($db, "SELECT * FROM employee") OR die(mysqli_error($db));
-    $totalNumberOfEmp= mysqli_num_rows($fetchingEmp);
-
-    $EmpNamesArray = array();
-    $EmpIDsArray = array();
-    $counter = 0;
-    while($Emp= mysqli_fetch_assoc($fetchingEmp))
-    {
-        $EmpNamesArray[] = $Emp['emp_name'];
-        $EmpIDsArray[] = $Emp['emp_id'];
-    }
-
-
-?>
-
+<div id='viewAttendance' class="tabcontent">
 <div class="container-fluid">
         <header class="bg-primary text-white text-center mb-3 py-3">
             <div class="row">
@@ -157,12 +92,10 @@ $conn->close();
                     <h2>Attendance</h2>
                     <h2>Month: <u><?php echo strtoupper(date("F")); ?></u></h2>
                 </div>
-            </div>
-
-           
+            </div>          
         </header>
 <table border="1" cellspacing="0">
-<?php 
+<?php require_once("viewAttendance.php");
     for($i = 1; $i<=$totalNumberOfEmp+ 2; $i++)
     {
         if($i == 1)
@@ -258,7 +191,7 @@ if ($resultNotices->num_rows > 0) {
 }
 ?>
 
-<h3>Existing Notices:</h3>
+<h3>Notices:</h3>
     <ul>
         <?php
         foreach ($notices as $notice) {
@@ -266,10 +199,6 @@ if ($resultNotices->num_rows > 0) {
         }
         ?>
     </ul>
-    <?php
-// Close the database connection
-$conn->close();
-?>
 </div>
 
     <script>
