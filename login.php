@@ -87,8 +87,7 @@ $auth->loginUser();
         <option value="Manager">Project Manager</option>
       </select>
       <div class="input-box">
-        <input type="password" name="password" placeholder="Password" required="" ><i class="far fa-eye" id="togglePassword" style="margin-left: -30px; 
-cursor: pointer;"></i>
+        <input id="pass" type="password" name="password" placeholder="Password" required="" ><i class="far fa-eye" id="togglePassword"></i>
       </div>
       <div class="remember-forgot">
         <label><input type="checkbox">Remember Me</label> <a href="home.html"> < Back To Home</a>
@@ -96,7 +95,7 @@ cursor: pointer;"></i>
     </form>
   </div>
   <script>const togglePassword = document.querySelector('#togglePassword');
-   const password = document.querySelector('#id_password');
+   const password = document.querySelector('#pass');
 
    togglePassword.addEventListener('click', function (e) {
     // toggle the type attribute

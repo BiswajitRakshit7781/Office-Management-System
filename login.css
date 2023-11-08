@@ -55,8 +55,8 @@ body {
 
 .input-box i {
   position: absolute;
-  right: 20px;
-  top: 50%;
+  right: 55px;
+  top: 66%;
   transform: translateY(-50%);
   font-size: 20px;
 }

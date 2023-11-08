@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $db = new Database($servername, $username, $password, $database);
     if ($db->addNotice($notice)) {
-        echo "<script>alert('Notice submitted successfully');</script>";
+        echo "<script>alert('Notice submitted successfully');</script>",
+        header('Location: hr_dashboard.php');
     } else {
         echo "Error submitting notice: " . $conn->error;
     }
