@@ -15,7 +15,7 @@ session_start();
 
 <body>
 <div class="navbar">
-    <h2>Welcome, <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
+    <h2>Welcome <?php echo $_SESSION["emp_name"]; ?><br> Employee ID : <?php echo $_SESSION["emp_id"]; ?> </h2>
         <a href="logout.php" style="float: right;"><h3>Logout</h3></a>
     </div>
 
@@ -76,7 +76,7 @@ session_start();
     <form method="post" action="fetchEmp.php">
         <label for="employee_id">Select Employee ID:</label>
         <select id="employee_id" name="employee_id" required>
-            <option value="" disabled selected>Select Employee ID</option>
+            <option value="" disabled selected></option>
             <?php
             foreach ($employeeIds as $empId) {
                 echo "<option value='$empId'>$empId</option>";
@@ -124,6 +124,7 @@ session_start();
       </div>
 
 <div id="addProject" class="tabcontent">
+    <h2>Add Project</h2>
 <form action="addProj.php" method="post">
     <label for="project_id">Project ID:</label>
     <input type="text" name="project_id" required><br>

@@ -58,19 +58,21 @@ session_start();
     <div id="updateProjectStatistics" class="tabcontent">
 
 <h2>Update Project Statistics</h2>
-<?php require_once("updateStat.php"); ?>
+<?php
+//  require_once("updateStat.php"); 
+ ?>
  <form method="post" action="updateStat.php">
   <label for="project_id">Select Project:</label>
     <select id="project_id" name="project_id">
     <?php
-    // Output project options
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            echo "<option value=".$row["project_id"].">".$row["project_name"]."</option>";
-        }
-    } else {
-        echo "<option value=''>No projects found</option>";
-    }
+    // // Output project options
+    // if ($result->num_rows > 0) {
+    //     while($row = $result->fetch_assoc()) {
+    //         echo "<option value=".$row["project_id"].">".$row["project_name"]."</option>";
+    //     }
+    // } else {
+    //     echo "<option value=''>No projects found</option>";
+    // }
     ?>
 </select><br><br>
 
@@ -85,6 +87,25 @@ session_start();
 </div>
 
 <div id='viewAttendance' class="tabcontent">
+    <?php
+    $db = mysqli_connect("localhost", "root", "", "project_database") or die("Connectivity Failed");
+
+    $firstDayOfMonth = date("1-m-Y");
+    $totalDaysInMonth = date("t", strtotime($firstDayOfMonth));
+   
+    // Fetching Students 
+    $fetchingEmp = mysqli_query($db, "SELECT * FROM employee") OR die(mysqli_error($db));
+    $totalNumberOfEmp= mysqli_num_rows($fetchingEmp);
+
+    $EmpNamesArray = array();
+    $EmpIDsArray = array();
+    $counter = 0;
+    while($Emp= mysqli_fetch_assoc($fetchingEmp))
+    {
+        $EmpNamesArray[] = $Emp['emp_name'];
+        $EmpIDsArray[] = $Emp['emp_id'];
+    }
+    ?>
 <div class="container-fluid">
         <header class="bg-primary text-white text-center mb-3 py-3">
             <div class="row">
@@ -95,7 +116,8 @@ session_start();
             </div>          
         </header>
 <table border="1" cellspacing="0">
-<?php require_once("viewAttendance.php");
+<?php 
+// require_once("viewAttendance.php");
     for($i = 1; $i<=$totalNumberOfEmp+ 2; $i++)
     {
         if($i == 1)

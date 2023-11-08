@@ -201,23 +201,26 @@ box-sizing: border-box;
     display: block;
     color: #fff;
     margin-bottom: 8px;
+    background: transparent;
 }
 
-#deleteEmployee input {
+#deleteEmployee input{
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    background: transparent;
+    color: white;
 }
 
 #deleteEmployee input[type="submit"] {
-    background-color: #e74c3c;
+    background-color: #530d05;
     color: #fff;
     cursor: pointer;
 }
 
 #deleteEmployee input[type="submit"]:hover {
-    background-color: #c0392b;
+    background-color: rgb(203, 120, 111);
 }
 
 #viewEmployee table {
@@ -390,6 +393,8 @@ box-sizing: border-box;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    background-color: transparent;
+    color: #fff;
 }
 
 #addProject input[type="submit"] {
@@ -400,6 +405,9 @@ box-sizing: border-box;
 
 #addProject input[type="submit"]:hover {
     background-color: #2980b9;
+}
+#addProject input {
+    color: #fff;
 }
 
 #payroll h1, h2 {
@@ -448,7 +456,7 @@ box-sizing: border-box;
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
-    background-color: transparent;
+    background: transparent;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -482,3 +490,8 @@ box-sizing: border-box;
 #updateEmployee input[type="submit"]:hover {
     background-color: #45a049;
 }
+#updateEmployee select{
+    background-color: transparent;
+    color: #fff;
+}
+
