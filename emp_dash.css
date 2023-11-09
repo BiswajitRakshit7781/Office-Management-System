@@ -218,3 +218,57 @@ button:hover{
 #notice input[type="submit"]:hover {
     background-color: #45a049;
 }
+
+#updateProjectStatistics .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#updateProjectStatistics h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#updateProjectStatistics form {
+    display: flex;
+    flex-direction: column;
+}
+
+#updateProjectStatistics label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+#updateProjectStatistics select, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#updateProjectStatistics select {
+    height: 40px;
+}
+
+#updateProjectStatistics input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#updateProjectStatistics input[type="submit"]:hover {
+    background-color: #45a049;
+}
