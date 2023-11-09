@@ -479,13 +479,16 @@ box-sizing: border-box;
     border-radius: 5px;
     box-sizing: border-box;
 }
-
+#updateEmployee select option {
+    background-color: rgba(0,0,0,0.75);
+	color: white;
+}
 #updateEmployee input[type="submit"] {
     width: auto;
     background-color: #4caf50;
     color: white;
     border: none;
-    margin-left: 172px;
+    margin-left: 158px;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
