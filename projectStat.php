@@ -24,7 +24,7 @@
         <th>Project Name</th>
         <th>Description</th>
         <th>Status</th>
-        <th>Progression</th>
+        <th>Progression(%)</th>
         <th>Starting Date</th>
         <th>Ending Date</th>
       </tr><?php
