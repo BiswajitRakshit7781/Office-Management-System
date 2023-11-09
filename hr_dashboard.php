@@ -336,10 +336,10 @@ session_start();
                         $color = "green";
                     }else if($EmpAttendance['status'] == "A")
                     {
-                        $color = "red";
+                        $color = "darkred";
                     }else if($EmpAttendance['status'] == "H")
                     {
-                        $color = "blue";
+                        $color = "darkblue";
                     }else if($EmpAttendance['status'] == "L")
                     {
                         $color = "brown";

@@ -235,7 +235,8 @@ box-sizing: border-box;
 }
 
 #viewEmployee th {
-    background-color: #f2f2f2;
+    background-color: transparent;
+    text-align: center;
 }
 
 /* CSS for View Project Statistics Tab */
@@ -250,19 +251,19 @@ box-sizing: border-box;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    color: #fff;
 }
 
-#projectStatistics table, th, td {
-    border: 1px solid black;
-}
+/* #projectStatistics table, th, td {
+    border: 2px solid white;
+} */
 
-#projectStatistics th, td {
+#projectStatistics table,th,td {
     padding: 15px;
-    text-align: left;
-}
-
-#projectStatistics th,td {
-    background-color: #f2f2f2;
+    text-align: center;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid white;
 }
 
 #projectStatistics form {
@@ -279,7 +280,7 @@ box-sizing: border-box;
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -321,11 +322,13 @@ box-sizing: border-box;
 }
 
 #notice li {
-    background-color: #ffffff;
+    background-color: transparent;
+    color: white;
     border: 1px solid #ccc;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
+    text-align: center;
 }
 
 #notice form {
@@ -404,7 +407,7 @@ box-sizing: border-box;
 }
 
 #addProject input[type="submit"]:hover {
-    background-color: #2980b9;
+    background-color: #0e5c3a;
 }
 #addProject input {
     color: #fff;
@@ -457,7 +460,6 @@ box-sizing: border-box;
     margin: 20px auto;
     padding: 20px;
     background: transparent;
-    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
@@ -467,7 +469,9 @@ box-sizing: border-box;
     margin-bottom: 10px;
 }
 
-#updateEmployee select, input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+#updateEmployee select, input[type="text"], input[type="email"], input[type="tel"], input[type="password"],input[type="number"] {
+    background: transparent;
+    color: #fff;
     width: 100%;
     padding: 8px;
     margin-bottom: 15px;
@@ -504,14 +508,43 @@ box-sizing: border-box;
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 20px;
-	background-color: #fff;
+    margin-bottom: 20px;
+	background-color: transparent;
 }
 #viewAttendance th, td {
 	border: 1px solid #ccc;
-	padding: 10px;
+	padding: 5px;
 	text-align: left;
 }
 #viewAttendance th {
 	background-color: #f2f2f2;
+    color: black;
 }
-
+#attendanceRegister input[type="submit"]{
+    width: auto;
+    background-color: #23b7ba;
+    color: white;
+    border: none;
+    margin-left: 80px;
+    margin-right: 80px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#attendanceRegister input[type="submit"]:hover {
+    background-color: #45a049;
+}
+#attendanceRegister input[type="date"]{
+    background-color: transparent;
+    color: white;
+}
+#attendanceRegister tr,td{
+    justify-content: center;
+    text-align: center;
+}
+#attendanceRegister table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 60%;
+}
