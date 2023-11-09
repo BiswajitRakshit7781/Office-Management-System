@@ -495,3 +495,23 @@ box-sizing: border-box;
     color: #fff;
 }
 
+#viewAttendance .container-fluid h2{
+    text-align: center;
+    margin-bottom: 20px;
+	color: #fff;
+}
+#viewAttendance table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	background-color: #fff;
+}
+#viewAttendance th, td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+}
+#viewAttendance th {
+	background-color: #f2f2f2;
+}
+

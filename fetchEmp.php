@@ -23,9 +23,6 @@ if ($resultEmployeeIds->num_rows > 0) {
         $employeeIds[] = $row['emp_id'];
     }
 }
-// Initialize variables
-$selectedEmployeeName = "";
-$selectedEmployeeId = "";
 
 // Close the database connection
 $conn->close();

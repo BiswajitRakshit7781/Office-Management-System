@@ -13,23 +13,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-// Handle form submission
+// Handle form submission for updating employee details
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $selectedEmployeeId = $_POST["employee_id"];
-
-    // Fetch corresponding employee name
-    $sqlEmployeeName = "SELECT emp_name FROM employee WHERE emp_id = '$selectedEmployeeId'";
-    $resultEmployeeName = $conn->query($sqlEmployeeName);
-
-    if ($resultEmployeeName->num_rows > 0) {
-        $row = $resultEmployeeName->fetch_assoc();
-        $selectedEmployeeName = $row["emp_name"];
-    }
-}
-
-// Update employee details in the database
-if (isset($_POST['update'])) {
+    $selectedEmpId = $_POST["emp_id"];
     $emailId = $_POST["email_id"];
     $address = $_POST["address"];
     $phoneNo = $_POST["phone_no"];
@@ -38,15 +24,22 @@ if (isset($_POST['update'])) {
     $basic = $_POST["basic"];
 
     // SQL query to update employee details
-    $sqlUpdateEmployee = "UPDATE employee SET email_id = '$emailId', address = '$address', 
-                           phone_no = '$phoneNo', post = '$post', password = '$password', 
-                           basic = '$basic' WHERE emp_id = '$selectedEmployeeId'";
+    $sqlUpdateEmployee = "UPDATE employee SET 
+                          email_id = '$emailId', 
+                          address = '$address', 
+                          phone_no = '$phoneNo', 
+                          post = '$post', 
+                          password = '$password', 
+                          basic = '$basic' 
+                          WHERE emp_id = '$selectedEmpId'";
 
     if ($conn->query($sqlUpdateEmployee) === TRUE) {
+        // Display a success message (if needed)
         echo "<script>alert('Employee details updated successfully');</script>";
     } else {
         echo "Error updating employee details: " . $conn->error;
     }
 }
+// Close the database connection
 $conn->close();
 ?>

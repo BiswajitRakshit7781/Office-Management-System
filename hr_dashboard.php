@@ -28,6 +28,7 @@ session_start();
     <button class="tablinks" onclick="openTab(event, 'projectStatistics')"><span></span>View Project Statistics</button> 
     <button class="tablinks" onclick="openTab(event, 'payroll')"><span></span>Payroll</button> 
     <button class="tablinks" onclick="openTab(event, 'attendanceRegister')"><span></span>Attendance Register</button>
+    <button class="tablinks" onclick="openTab(event, 'viewAttendance')"><span></span>View Attendance</button>
     <button class="tablinks" onclick="openTab(event, 'notice')"><span></span>Notice</button>
   </div>
  
@@ -72,40 +73,37 @@ session_start();
 
 <div id="updateEmployee" class="tabcontent">
 <h2>Update Employee</h2>
-<?php require_once("fetchEmp.php"); ?>
-    <form method="post" action="fetchEmp.php">
-        <label for="employee_id">Select Employee ID:</label>
-        <select id="employee_id" name="employee_id" required>
-            <option value="" disabled selected></option>
-            <?php
+<form method="post" action="updateEmp.php">
+        <label for="emp_id">Select Employee ID:</label>
+        <select id="emp_id" name="emp_id" required>
+            <?php require_once("fetchEmp.php");
             foreach ($employeeIds as $empId) {
                 echo "<option value='$empId'>$empId</option>";
             }
             ?>
-        </select>
-        <input type="submit" value="Select Employee">
+        </select><br>
+
+        <label for="email_id">Email ID:</label>
+        <input type="email" id="email_id" name="email_id" required><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br>
+
+        <label for="phone_no">Phone Number:</label>
+        <input type="tel" id="phone_no" name="phone_no" required><br>
+
+        <label for="post">Post:</label>
+        <input type="text" id="post" name="post" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="basic">Basic:</label>
+        <input type="number" id="basic" name="basic" required><br>
+
+        <input type="submit" value="Update Employee Details">
     </form>
-    <?php require_once("fetchEmp.php");
-    if ($selectedEmployeeName): ?>
-        <h3>Selected Employee: <?php echo $selectedEmployeeName; ?></h3>
-        <form method="post" action="updateEmp.php">
-            <input type="hidden" name="employee_id" value="<?php echo $selectedEmployeeId; ?>">
-            <label for="email_id">Email ID:</label>
-            <input type="email" id="email_id" name="email_id" required><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required><br>
-            <label for="phone_no">Phone Number:</label>
-            <input type="tel" id="phone_no" name="phone_no" required><br>
-            <label for="post">Post:</label>
-            <input type="text" id="post" name="post" required><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
-            <label for="basic">Basic:</label>
-            <input type="text" id="basic" name="basic" required><br>
-            <input type="submit" name="update" value="Update Details">
-        </form>
-    <?php endif; ?>
-    </div>
+</div>
 
 <div id="deleteEmployee" class="tabcontent">
 <h2>Delete Employee</h2>
@@ -157,7 +155,212 @@ session_start();
 
   <div id="attendanceRegister" class="tabcontent">
     <h3>Attendance Register Content</h3>
+    <table border="1" cellspacing="0">
+    <form method="POST">
+        <tr>
+            <th>Employee Name</th>
+            <th> P </th>
+            <th> A </th>
+            <th> L </th>
+            <th> H </th>
+        </tr>
+        <?php
+            $db = mysqli_connect("localhost", "root", "", "project_database") or die("Connectivity Failed");
+            $fetchingEmp = mysqli_query($db, "SELECT * FROM employee") OR die(mysqli_error($db));
+            while($data = mysqli_fetch_assoc($fetchingEmp))
+            {
+                $Emp_name = $data['emp_name'];
+                $Emp_id = $data['emp_id'];
+        ?>
+                <tr>
+                    <td><?php echo $Emp_name; ?></td>
+                    <td> <input type="checkbox" name="empPresent[]" value="<?php echo $Emp_id; ?>" /></td>
+                    <td> <input type="checkbox" name="empAbsent[]" value="<?php echo $Emp_id; ?>" /></td>
+                    <td> <input type="checkbox" name="empLeave[]" value="<?php echo $Emp_id; ?>" /></td>
+                    <td> <input type="checkbox" name="empHoliday[]" value="<?php echo $Emp_id; ?>" /></td>
+                </tr>
+        <?php
+
+            }
+        ?>
+        <tr>
+            <td>Select Date</td>
+            <td colspan="4"> <input type="date" name="selected_date" /> </td>
+        </tr>
+        <tr>
+            <th colspan="5"> <input type="submit" name="addAttendanceBTN" /></th>
+        </tr>
+    </form>
+</table>
+
+
+<?php 
+    if(isset($_POST['addAttendanceBTN']))
+    {
+        date_default_timezone_set("Asia/Kolkata");
+
+        // Date Logic Starts 
+        if($_POST['selected_date'] == NULL)
+        {
+            $selected_date = date("Y-m-d");
+        }else {
+            $selected_date = $_POST['selected_date'];
+        }
+        // Date Logic Ends
+        $attendance_month = date("M", strtotime($selected_date));
+        $attendance_year = date("Y", strtotime($selected_date));
+
+        if(isset($_POST['empPresent']))
+        {
+            $EmpPresent = $_POST['empPresent'];
+            $attendance = "P";
+
+            foreach($EmpPresent as $atd)
+            {
+                mysqli_query($db, "INSERT INTO attendance(emp_id, curr_date, attendance_month, attendance_year, status) VALUES('" . $atd . "', '". $selected_date ."', '". $attendance_month ."', '". $attendance_year ."', '". $attendance ."')") OR die(mysqli_error($db));
+            }
+
+        }
+
+        if(isset($_POST['empAbsent']))
+        {
+            $EmpAbsent = $_POST['empAbsent'];
+            $attendance = "A";
+
+            foreach($EmpAbsent as $atd)
+            {
+                mysqli_query($db, "INSERT INTO attendance(emp_id, curr_date, attendance_month, attendance_year, status) VALUES('" . $atd . "', '". $selected_date ."', '". $attendance_month ."', '". $attendance_year ."', '". $attendance ."')") OR die(mysqli_error($db));
+            }
+        }
+
+        if(isset($_POST['empLeave']))
+        {
+            $EmpLeave = $_POST['empLeave'];
+            $attendance = "L";
+
+            foreach($EmpLeave as $atd)
+            {
+                mysqli_query($db, "INSERT INTO attendance(emp_id, curr_date, attendance_month, attendance_year, status) VALUES('" . $atd . "', '". $selected_date ."', '". $attendance_month ."', '". $attendance_year ."', '". $attendance ."')") OR die(mysqli_error($db));
+            }
+        }
+
+        if(isset($_POST['empHoliday']))
+        {
+            $EmpHoliday = $_POST['empHoliday'];
+            $attendance = "H";
+
+            foreach($EmpHoliday as $atd)
+            {
+                mysqli_query($db, "INSERT INTO attendance(emp_id, curr_date, attendance_month, attendance_year, status) VALUES('" . $atd . "', '". $selected_date ."', '". $attendance_month ."', '". $attendance_year ."', '". $attendance ."')") OR die(mysqli_error($db));
+            }
+        }
+
+
+
+        echo "Attendance added successfully";
+
+    }
+?>
   </div>
+
+  <div id="viewAttendance" class="tabcontent">
+    <?php 
+    $db = mysqli_connect("localhost", "root", "", "project_database") or die("Connectivity Failed");
+
+    $firstDayOfMonth = date("1-m-Y");
+    $totalDaysInMonth = date("t", strtotime($firstDayOfMonth));
+   
+    // Fetching Students 
+    $fetchingEmp = mysqli_query($db, "SELECT * FROM employee") OR die(mysqli_error($db));
+    $totalNumberOfEmp= mysqli_num_rows($fetchingEmp);
+
+    $EmpNamesArray = array();
+    $EmpIDsArray = array();
+    $counter = 0;
+    while($Emp= mysqli_fetch_assoc($fetchingEmp))
+    {
+        $EmpNamesArray[] = $Emp['emp_name'];
+        $EmpIDsArray[] = $Emp['emp_id'];
+    }
+
+
+?>
+
+<div class="container-fluid">
+        <header class="bg-primary text-white text-center mb-3 py-3">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Attendance<br>
+                    Month: <u><?php echo strtoupper(date("F")); ?></u></h2>
+                </div>
+            </div>
+
+           
+        </header>
+<table border="1" cellspacing="0">
+<?php 
+    for($i = 1; $i<=$totalNumberOfEmp+ 2; $i++)
+    {
+        if($i == 1)
+        {
+            echo "<tr>";
+            echo "<td rowspan='2'>Names</td>";
+            for($j = 1; $j<=$totalDaysInMonth; $j++)
+            {
+                echo "<td>$j</td>";
+            }
+            echo "</tr>";
+        }else if($i == 2)
+        {
+            echo "<tr>";
+            for($j = 0; $j<$totalDaysInMonth; $j++)
+            {
+                echo "<td>" . date("D", strtotime("+$j days", strtotime($firstDayOfMonth))) . "</td>";
+            }
+            echo "</tr>";
+        }else 
+        {
+            echo "<tr>";
+            echo "<td>" . $EmpNamesArray[$counter] . "</td>";
+            for($j = 1; $j<=$totalDaysInMonth; $j++)
+            {
+                $dateOfAttendance = date("Y-m-$j");
+                $fetchingEmpAttendance = mysqli_query($db, "SELECT status FROM attendance WHERE emp_id = '". $EmpIDsArray[$counter] ."' AND curr_date = '". $dateOfAttendance ."'") OR die(mysqli_error($db));
+                
+                $isAttendanceAdded = mysqli_num_rows($fetchingEmpAttendance);
+                if($isAttendanceAdded > 0)
+                {
+                    $EmpAttendance = mysqli_fetch_assoc($fetchingEmpAttendance);
+                    if($EmpAttendance['status'] == "P")
+                    {
+                        $color = "green";
+                    }else if($EmpAttendance['status'] == "A")
+                    {
+                        $color = "red";
+                    }else if($EmpAttendance['status'] == "H")
+                    {
+                        $color = "blue";
+                    }else if($EmpAttendance['status'] == "L")
+                    {
+                        $color = "brown";
+                    }
+
+                    echo "<td style='background-color: $color; color:white'>" . $EmpAttendance['status'] . "</td>";
+                }else {
+                    echo "<td></td>";
+                }
+               
+
+            }
+            echo "</tr>";
+            $counter++;
+        }
+    }
+?>
+</table>
+</div>
+        </div>
+    </div>
 
   <div id="notice" class="tabcontent">
   <h1>Notice</h1>

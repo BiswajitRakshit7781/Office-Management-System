@@ -55,35 +55,30 @@ session_start();
 
 </div>
 
-    <div id="updateProjectStatistics" class="tabcontent">
-
+<div id="updateProjectStatistics" class="tabcontent">
 <h2>Update Project Statistics</h2>
-<?php
-//  require_once("updateStat.php"); 
- ?>
- <form method="post" action="updateStat.php">
-  <label for="project_id">Select Project:</label>
-    <select id="project_id" name="project_id">
-    <?php
-    // // Output project options
-    // if ($result->num_rows > 0) {
-    //     while($row = $result->fetch_assoc()) {
-    //         echo "<option value=".$row["project_id"].">".$row["project_name"]."</option>";
-    //     }
-    // } else {
-    //     echo "<option value=''>No projects found</option>";
-    // }
-    ?>
-</select><br><br>
+<form method="post" action="updatestat.php">
+        <label for="project_id">Select Project:</label>
+        <select id="project_id" name="project_id" required>
+            <?php require_once("fetchProj.php");
+            foreach ($projects as $project) {
+                echo "<option value='{$project['project_id']}'>{$project['project_name']}</option>";
+            }
+            ?>
+        </select><br>
 
-<label for="status">Update Status:</label>
-<input type="text" id="status" name="status" required>
-<label for="progression">Update Progression:</label>
-<input type="text" id="progression" name="progression" required>
-<br><br>
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Complete">Complete</option>
+        </select><br>
 
-<input type="submit" value="Update Statistics">
-</form>
+        <label for="progression">Progression (%):</label>
+        <input type="number" id="progression" name="progression" min="0" max="100" required><br>
+
+        <input type="submit" value="Update Project Statistics">
+    </form>
 </div>
 
 <div id='viewAttendance' class="tabcontent">
