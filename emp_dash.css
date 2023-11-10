@@ -81,22 +81,24 @@ button:hover{
 	display: none;
 }
 
-#viewTask table {
+#viewTask table  {
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 20px;
-	background-color: transparent;
 	color: #fff;
 }
 
-#viewTask th, td {
+#viewTask th {
+    background-color: transparent;
 	border: 1px solid #fff;
 	padding: 10px;
+    text-align: center;
 }
 
-#viewTask th {
+#viewTask td {
 	background-color: transparent;
-    text-align: center;
+   color: white;
+   border-color: #fff;
 }
 
 #viewTask h2{
@@ -122,9 +124,10 @@ button:hover{
 	padding: 5px;
 	text-align: left;
 }
-#viewAttendance th {
-	background-color: #f2f2f2;
-    color: black;
+#viewAttendance td {
+    background-color: transparent;
+    color: white;
+    border-color: #fff;
 }
 
 #payrollSlip table {

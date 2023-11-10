@@ -225,6 +225,7 @@ box-sizing: border-box;
 
 #viewEmployee table {
     width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
 }
 
@@ -253,10 +254,6 @@ box-sizing: border-box;
     margin-top: 20px;
     color: #fff;
 }
-
-/* #projectStatistics table, th, td {
-    border: 2px solid white;
-} */
 
 #projectStatistics table,th,td {
     padding: 15px;
@@ -520,7 +517,6 @@ box-sizing: border-box;
 	text-align: left;
 }
 #viewAttendance th {
-	background-color: #f2f2f2;
     color: black;
 }
 #attendanceRegister input[type="submit"]{

@@ -93,19 +93,15 @@ button:hover{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    color: #fff;
 }
 
-#projectStatistics table, th, td {
-    border: 1px solid black;
-}
-
-#projectStatistics th, td {
+#projectStatistics table,th,td {
     padding: 15px;
-    text-align: left;
-}
-
-#projectStatistics th,td {
-    background-color: #f2f2f2;
+    text-align: center;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid white;
 }
 
 #projectStatistics form {
@@ -122,7 +118,7 @@ button:hover{
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -148,24 +144,34 @@ button:hover{
 }
 
 #addTask form {
-    max-width: 500px;
-    border: 1px solid #fff;
+    background-color: transparent;
+    max-width: 25%;
     margin: 20px auto;
-    width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#addTask label {
-    /* display: block; */
-    margin-bottom: 10px;
+#addTask select{
+    background-color: transparent;
     color: #fff;
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid white;
 }
 
 #addTask select, input[type="text"], input[type="submit"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #fff;
+}
+#addTask label{
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
     box-sizing: border-box;
 }
 
@@ -180,7 +186,7 @@ button:hover{
 }
 
 #addTask input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #337f37;
 }
 
 #notice h2 {
@@ -198,6 +204,7 @@ button:hover{
 
 #notice h3 {
     color: #fff;
+    text-align: ;
 }
 
 #notice ul {
@@ -206,11 +213,13 @@ button:hover{
 }
 
 #notice li {
-    background-color: #ffffff;
+    background-color: transparent;
+    color: white;
     border: 1px solid #ccc;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
+    text-align: center;
 }
 
 #notice form {
@@ -226,6 +235,31 @@ button:hover{
     color: #fff;
     display: block;
     margin-bottom: 10px;
+}
+
+#notice textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+#notice input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    margin-left: 140px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#notice input[type="submit"]:hover {
+    background-color: #45a049;
 }
 
 #notice textarea {
@@ -262,13 +296,14 @@ button:hover{
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 20px;
-	background-color: #fff;
+    margin-bottom: 20px;
+	background-color: transparent;
 }
 #viewAttendance th, td {
 	border: 1px solid #ccc;
-	padding: 10px;
+	padding: 5px;
 	text-align: left;
 }
 #viewAttendance th {
-	background-color: #f2f2f2;
+    color: black;
 }
