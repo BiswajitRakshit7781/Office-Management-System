@@ -176,6 +176,7 @@ session_start();
         </div>
 <div id="payrollSlip" class="tabcontent">
     <h2>Payroll Slip</h2>
+    <?php include_once("emp_payroll.php"); ?>
 </div>
 
 <div id="notice" class="tabcontent">

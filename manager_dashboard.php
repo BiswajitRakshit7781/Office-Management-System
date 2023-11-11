@@ -211,7 +211,7 @@ session_start();
 
     <div id="payrollSlip" class="tabcontent">
         <h3>Payroll Slip Content</h3>
-        <!-- Payroll slip content goes here -->
+        <?php require_once("emp_payroll.php");?>
     </div>
 
 <div id="notice" class="tabcontent">

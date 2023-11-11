@@ -148,8 +148,9 @@ session_start();
   </div>
 
   <div id="payroll" class="tabcontent">
+    <h2>Payroll</h2>
     <?php 
-    // require_once("payroll.php"); 
+    require_once("hr_entry.php"); 
     ?>
   </div>
 
