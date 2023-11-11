@@ -547,3 +547,32 @@ box-sizing: border-box;
     margin-top: 20px;
     width: 60%;
 }
+#payroll h2{
+    color: white;
+    text-align: center;
+}
+#payroll .container{
+    width: 420px;
+   background: transparent;
+   color: #fff;
+   border-radius: 10px;
+   padding: 30px 40px;
+   margin-left: 35vw;
+}
+#payroll .container p{
+    color: #fff;
+}
+#payroll button[type="submit"]{
+    width: 20em;
+    background-color: #23b7ba;
+    color: white;
+    border: none;
+    margin-left: 79px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#payroll button[type="submit"]:hover {
+    background-color: #45a049;
+}
+    

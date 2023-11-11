@@ -296,8 +296,26 @@ button:hover{
 #viewAttendance th, td {
 	border: 1px solid #ccc;
 	padding: 5px;
-	text-align: left;
+	text-align: center;
 }
 #viewAttendance th {
     color: black;
 }
+#payrollSlip h3{
+    color: #fff;
+    text-align: center;
+}
+#payrollSlip table{
+    width: 50%;
+	border-collapse: collapse;
+	margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 25%;
+	background-color: transparent;
+}
+#payrollSlip tr,td{
+    border: 2px solid #ccc;
+	padding: 5px;
+	text-align: center;
+}
+

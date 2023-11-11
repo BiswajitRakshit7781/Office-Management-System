@@ -210,7 +210,7 @@ session_start();
     </div>
 
     <div id="payrollSlip" class="tabcontent">
-        <h3>Payroll Slip Content</h3>
+        <h3>Payroll Slip</h3>
         <?php require_once("emp_payroll.php");?>
     </div>
 

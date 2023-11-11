@@ -8,15 +8,15 @@
 </head>
 <body> -->
 <div class="container">
-        <p>Enter Your Employee Id</p>
-        <form method="post" action="hr_payroll.php">
+ <form method="post" action="hr_payroll.php">
+        <p>Enter Your Employee Id :</p>
             <input type="text" name="emp_id" required>
-            <p>Enter Year</p>
+            <p>Enter Year :</p>
             <input type="text" name="year" required>
-            <p>Enter Month</p>
+            <p>Enter Month :</p>
             <input type="text" name="month" required>
             <button name="submit" type="submit">Submit</button>
         </form>
-    <!-- </div>
-</body>
+    </div>
+<!-- </body>
 </html> -->

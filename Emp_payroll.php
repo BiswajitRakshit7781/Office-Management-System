@@ -91,7 +91,7 @@
         <td>'. $PF .'</td>
     </tr>
     <tr>
-        <th>deductions</th>
+        <th>Deductions</th>
         <td>'. $DEDUCTION .'</td>
     </tr>
     <tr>
