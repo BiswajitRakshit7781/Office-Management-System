@@ -35,7 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sqlUpdateEmployee) === TRUE) {
         // Display a success message (if needed)
-        echo "<script>alert('Employee details updated successfully');</script>";
+        echo '<script>';
+            echo 'alert("Employee updated successfully");';
+            echo 'window.location.href = "hr_dashboard.php";';
+            echo '</script>';
     } else {
         echo "Error updating employee details: " . $conn->error;
     }

@@ -93,8 +93,10 @@ session_start();
         <input type="tel" id="phone_no" name="phone_no" required><br>
 
         <label for="post">Post:</label>
-        <input type="text" id="post" name="post" required><br>
-
+        <select name="post">
+                    <option value="employee">Employee</option>
+                    <option value="manager">Project Manager</option>
+                </select>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
 
@@ -258,7 +260,10 @@ session_start();
 
 
 
-        echo "Attendance added successfully";
+        echo '<script>';
+            echo 'alert("Attendance added successfully");';
+            echo 'window.location.href = "hr_dashboard.php";';
+            echo '</script>';
 
     }
 ?>
@@ -401,7 +406,7 @@ if ($resultNotices->num_rows > 0) {
         ?>
     </ul>
     <h3>Write New Notice:</h3>
-    <form method="post" action="editNotice.php">
+    <form method="post" action="editNoticehr.php">
         <label for="notice">Notice:</label><br>
         <textarea id="notice" name="notice" rows="4" cols="50" required></textarea><br><br>
         <input type="submit" value="Submit Notice">

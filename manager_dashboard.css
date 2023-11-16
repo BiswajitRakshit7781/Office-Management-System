@@ -318,4 +318,7 @@ button:hover{
 	padding: 5px;
 	text-align: center;
 }
-
+#addTask select option {
+    background-color: rgba(0,0,0,0.75);
+	color: white;
+}

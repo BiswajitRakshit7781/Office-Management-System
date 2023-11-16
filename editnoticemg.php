@@ -11,16 +11,13 @@ class Database {
         }
     }
 
-    public function addTask($project_id, $emp_id, $role) {
-        $sqlInsertTask = "INSERT INTO task (project_id, emp_id, role) VALUES ('$project_id', '$emp_id', '$role')";
+    public function addNotice($notice) {
+        $sqlInsertNotice = "INSERT INTO notice (time, notice) VALUES (CURRENT_TIME(), '$notice')";
 
-        if ($this->conn->query($sqlInsertTask) === TRUE) {
-            echo '<script>';
-            echo 'alert("Task added successfully");';
-            echo 'window.location.href = "manager_dashboard.php";';
-            echo '</script>';
+        if ($this->conn->query($sqlInsertNotice) === TRUE) {
+            return true;
         } else {
-            echo "Error adding task: " . $this->conn->error;
+            return false;
         }
     }
 
@@ -36,12 +33,18 @@ $password = "";
 $database = "project_database";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $project_id = $_POST["project_id"];
-    $emp_id = $_POST["emp_id"];
-    $role = $_POST["role"];
+    $notice = $_POST["notice"];
 
     $db = new Database($servername, $username, $password, $database);
-    $db->addTask($project_id, $emp_id, $role);
+    if ($db->addNotice($notice)) {
+        // echo "<script>alert('Notice submitted successfully');</script>",
+        echo '<script>';
+        echo 'alert("Notice submitted successfully");';
+        echo 'window.location.href = "hr_dashboard.php";';
+        echo '</script>';
+    } else {
+        echo "Error submitting notice: " . $conn->error;
+    }
     $db->closeConnection();
 }
 

@@ -16,7 +16,10 @@ class Database {
                 VALUES ('$project_id', '$project_name', '$description', '$starting_date', '$ending_date')";
 
         if ($this->conn->query($sql) === TRUE) {
-            echo "Project added successfully";
+            echo '<script>';
+            echo 'alert("Project added successfully");';
+            echo 'window.location.href = "hr_dashboard.php";';
+            echo '</script>';
         } else {
             echo "Error adding project: " . $this->conn->error;
         }

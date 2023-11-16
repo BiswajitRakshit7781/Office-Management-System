@@ -575,4 +575,7 @@ box-sizing: border-box;
 #payroll button[type="submit"]:hover {
     background-color: #45a049;
 }
-    
+#payroll select option {
+    background-color: rgba(0,0,0,0.75);
+	color: white;
+}

@@ -10,7 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sqlUpdateProject) === TRUE) {
         // Display a success message
-        echo "Project statistics updated successfully";
+        echo '<script>';
+            echo 'alert("Project statistics updated successfully");';
+            echo 'window.location.href = "employee_dashboard.php";';
+            echo '</script>';
     } else {
         echo "Error updating project statistics: " . $conn->error;
     }

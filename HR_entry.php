@@ -14,7 +14,20 @@
             <p>Enter Year :</p>
             <input type="text" name="year" required>
             <p>Enter Month :</p>
-            <input type="text" name="month" required>
+            <select name="month">
+                    <option value="Jan">January</option>
+                    <option value="Feb">February</option>
+                    <option value="Mar">March</option>
+                    <option value="Apr">April</option>
+                    <option value="May">May</option>
+                    <option value="Jun">June</option>
+                    <option value="Jul">July</option>
+                    <option value="Aug">August</option>
+                    <option value="Sep">September</option>
+                    <option value="Oct">October</option>
+                    <option value="Nov">November</option>
+                    <option value="Dec">December</option>
+                </select>
             <button name="submit" type="submit">Submit</button>
         </form>
     </div>

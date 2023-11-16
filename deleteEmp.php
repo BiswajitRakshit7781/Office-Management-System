@@ -15,7 +15,10 @@ class Database {
         $sql = "DELETE FROM employee WHERE emp_id = $emp_id";
 
         if ($this->conn->query($sql) === TRUE) {
-            echo "Employee data deleted successfully";
+            echo '<script>';
+            echo 'alert("Employee deleted successfully");';
+            echo 'window.location.href = "hr_dashboard.php";';
+            echo '</script>';
         } else {
             echo "Error deleting employee data: " . $this->conn->error;
         }

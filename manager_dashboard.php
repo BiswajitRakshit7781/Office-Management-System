@@ -226,7 +226,7 @@ session_start();
         ?>
     </ul>
     <h3>Write New Notice:</h3>
-    <form method="post" action="editNotice.php">
+    <form method="post" action="editNoticemg.php">
         <label for="notice">Notice:</label><br>
         <textarea id="notice" name="notice" rows="4" cols="50" required></textarea><br><br>
         <input type="submit" value="Submit Notice">

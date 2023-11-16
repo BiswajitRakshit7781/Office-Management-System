@@ -19,7 +19,10 @@ class Database {
                       VALUES ('$empid', '$empName', '$email', '$address', '$phone', '$post', '$pwd', '$dateOfJoin', '$basicSalary')";
 
         if ($this->conn->query($insertSql) === TRUE) {
-            echo "New employee record created successfully";
+            echo '<script>';
+            echo 'alert("Employee added successfully");';
+            echo 'window.location.href = "hr_dashboard.php";';
+            echo '</script>';
         } else {
             echo "Error: " . $insertSql . "<br>" . $this->conn->error;
         }
