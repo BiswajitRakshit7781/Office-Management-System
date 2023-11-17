@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2023 at 01:17 PM
+-- Generation Time: Nov 17, 2023 at 05:40 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,7 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `attendance` (
   `emp_id` varchar(30) NOT NULL,
-  `date` date NOT NULL,
+  `curr_date` date NOT NULL,
+  `attendance_month` varchar(12) NOT NULL,
+  `attendance_year` int(11) NOT NULL,
   `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -37,8 +39,47 @@ CREATE TABLE `attendance` (
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`emp_id`, `date`, `status`) VALUES
-('EMP0005', '0000-00-00', '');
+INSERT INTO `attendance` (`emp_id`, `curr_date`, `attendance_month`, `attendance_year`, `status`) VALUES
+('EMP0001', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0002', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0003', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0004', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0005', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0001', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0002', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0003', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0004', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0005', '2023-11-01', 'Nov', 2023, 'P'),
+('EMP0001', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0002', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0003', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0004', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0005', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0001', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0002', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0003', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0004', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0005', '2023-11-02', 'Nov', 2023, 'P'),
+('EMP0001', '2023-11-03', 'Nov', 2023, 'P'),
+('EMP0002', '2023-11-03', 'Nov', 2023, 'P'),
+('EMP0003', '2023-11-03', 'Nov', 2023, 'P'),
+('EMP0006', '2023-11-03', 'Nov', 2023, 'P'),
+('EMP0004', '2023-11-03', 'Nov', 2023, 'A'),
+('EMP0005', '2023-11-03', 'Nov', 2023, 'A'),
+('EMP0006', '2023-11-01', 'Nov', 2023, 'L'),
+('EMP0006', '2023-11-02', 'Nov', 2023, 'L'),
+('EMP0001', '2023-11-04', 'Nov', 2023, 'H'),
+('EMP0002', '2023-11-04', 'Nov', 2023, 'H'),
+('EMP0003', '2023-11-04', 'Nov', 2023, 'H'),
+('EMP0004', '2023-11-04', 'Nov', 2023, 'H'),
+('EMP0005', '2023-11-04', 'Nov', 2023, 'H'),
+('EMP0006', '2023-11-04', 'Nov', 2023, 'H'),
+('EMP0001', '2023-11-09', 'Nov', 2023, 'P'),
+('EMP0002', '2023-11-09', 'Nov', 2023, 'P'),
+('EMP0003', '2023-11-09', 'Nov', 2023, 'P'),
+('EMP0004', '2023-11-09', 'Nov', 2023, 'P'),
+('EMP0005', '2023-11-09', 'Nov', 2023, 'P'),
+('EMP0006', '2023-11-09', 'Nov', 2023, 'P');
 
 -- --------------------------------------------------------
 
@@ -66,34 +107,9 @@ INSERT INTO `employee` (`emp_id`, `emp_name`, `email_id`, `address`, `phone_no`,
 ('EMP0001', 'Raju Pal', 'rajupal@gmail.com', 'Nadia,West Bengal ', '9874563210', 'HR', 'RAJU0001', '2016-07-13', 60000),
 ('EMP0002', 'Saikat Das', 'saikatdas@gmail.com', 'Bally,West Bengal ', '7485963210', 'Employee', 'SAIK0002', '2017-01-05', 20000),
 ('EMP0003', 'Arpita Sen', 'arpitasen@gmail.com', 'Rishra,West Bengal ', '9678410235', 'Manager', 'ARPI0003', '2018-05-08', 40000),
-('EMP0004', 'MD. Musfikur', 'mdmusfi@gmail.com', 'Murshidabad, West Bengal', '6291364578', 'Employee', 'MDMU0005', '2021-11-02', 18000),
-('EMP0005', 'Soham Das', 'sohamdas@gmail.com', 'Uttarpara,West Bengal ', '8796541230', 'employee', 'SOHA0004', '2020-01-04', 20000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee_leave`
---
-
-CREATE TABLE `employee_leave` (
-  `emp_id` varchar(20) NOT NULL,
-  `leave_id` varchar(20) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `reason` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `leave`
---
-
-CREATE TABLE `leave` (
-  `leave_id` varchar(10) NOT NULL,
-  `descripction` text NOT NULL,
-  `max_leave` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+('EMP0004', 'MD. Musfikur', 'mdmusfi@gmail.com', 'Murshidabad, West Bengal', '6291364578', 'Employee', 'MDMU0004', '2021-11-02', 18000),
+('EMP0005', 'Soham Das', 'sohamdas@gmail.com', 'Uttarpara,West Bengal ', '8796541230', 'employee', 'SOHA0005', '2020-01-04', 20000),
+('EMP0006', 'Raja Mallick', 'rajamallick@gmail.com', 'Bankura,West Bengal', '6291354789', 'manager', 'RAJA0006', '2021-06-04', 40000);
 
 -- --------------------------------------------------------
 
@@ -112,27 +128,7 @@ CREATE TABLE `notice` (
 --
 
 INSERT INTO `notice` (`notice_id`, `time`, `notice`) VALUES
-(1, '2023-11-04 09:23:16', 'testing '),
-(10, '2023-11-04 09:42:50', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payroll`
---
-
-CREATE TABLE `payroll` (
-  `emp_id` varchar(20) NOT NULL,
-  `payroll_year` int(4) NOT NULL,
-  `payroll_month` varchar(20) NOT NULL,
-  `basic` int(10) NOT NULL,
-  `pf` int(10) NOT NULL,
-  `deduction` int(10) NOT NULL,
-  `da` int(10) NOT NULL,
-  `hra` int(10) NOT NULL,
-  `gross_salary` int(10) NOT NULL,
-  `net_salary` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(20, '2023-11-17 04:29:19', 'hello');
 
 -- --------------------------------------------------------
 
@@ -145,7 +141,7 @@ CREATE TABLE `project` (
   `project_name` varchar(20) NOT NULL,
   `description` varchar(150) NOT NULL,
   `status` varchar(20) DEFAULT NULL,
-  `progression` varchar(20) DEFAULT NULL,
+  `progression` int(20) DEFAULT NULL,
   `starting_date` date NOT NULL,
   `ending_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -155,7 +151,10 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`project_id`, `project_name`, `description`, `status`, `progression`, `starting_date`, `ending_date`) VALUES
-('PROJ001', 'Online Food Service', 'An online food service website where customer can order and pay online. Also having customer support.', 'Complete', '100%', '2022-10-12', '2023-01-27');
+('PROJ001', 'Online Food Service', 'An online food service website where customer can order and pay online. Also having customer support.', 'Complete', 100, '2022-10-12', '2023-01-27'),
+('PROJ002', 'Online Car Booking', 'A car booking website with payment gateway and customer support', NULL, NULL, '2023-03-01', '2023-05-02'),
+('PROJ003', 'Home Rent Portal', 'Book and manage house rent', NULL, NULL, '2023-07-12', '2023-09-27'),
+('PROJ004', 'Attendance register ', 'Smart attendance using QR code', 'In Progress', 100, '2023-09-07', '2023-12-14');
 
 -- --------------------------------------------------------
 
@@ -168,6 +167,14 @@ CREATE TABLE `task` (
   `emp_id` varchar(20) NOT NULL,
   `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`project_id`, `emp_id`, `role`) VALUES
+('PROJ002', 'EMP0002', 'Junior Developer'),
+('PROJ003', 'EMP0002', 'Adviser');
 
 --
 -- Indexes for dumped tables
@@ -188,29 +195,10 @@ ALTER TABLE `employee`
   ADD UNIQUE KEY `phone_no` (`phone_no`);
 
 --
--- Indexes for table `employee_leave`
---
-ALTER TABLE `employee_leave`
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `leave_id` (`leave_id`);
-
---
--- Indexes for table `leave`
---
-ALTER TABLE `leave`
-  ADD PRIMARY KEY (`leave_id`);
-
---
 -- Indexes for table `notice`
 --
 ALTER TABLE `notice`
   ADD PRIMARY KEY (`notice_id`);
-
---
--- Indexes for table `payroll`
---
-ALTER TABLE `payroll`
-  ADD KEY `emp_id` (`emp_id`);
 
 --
 -- Indexes for table `project`
@@ -233,7 +221,7 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `notice_id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `notice_id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -244,19 +232,6 @@ ALTER TABLE `notice`
 --
 ALTER TABLE `attendance`
   ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
-
---
--- Constraints for table `employee_leave`
---
-ALTER TABLE `employee_leave`
-  ADD CONSTRAINT `employee_leave_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-  ADD CONSTRAINT `employee_leave_ibfk_2` FOREIGN KEY (`leave_id`) REFERENCES `leave` (`leave_id`);
-
---
--- Constraints for table `payroll`
---
-ALTER TABLE `payroll`
-  ADD CONSTRAINT `payroll_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
 
 --
 -- Constraints for table `task`
